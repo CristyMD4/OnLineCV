@@ -3,19 +3,19 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 const identity = {
   name: 'Cornita Cristian',
   role: 'Front End Developer',
-  email: 'cristian.cornita@email.com',
+  email: 'cristian.cornita@gmail.com',
   phone: '+373 60 000 000',
   location: 'Chisinau, Moldova',
   github: 'https://github.com/CristyMD4',
   linkedin: 'https://linkedin.com/',
-  availability: 'Available for junior and mid-level front-end roles',
+  availability: 'Available for junior front-end roles',
   workMode: 'Remote, hybrid, or on-site collaboration',
   summary:
     'Front-end developer focused on React product interfaces, accessible user flows, and maintainable UI systems for teams that value polish, speed, and reliable delivery.',
 }
 
 const metrics = [
-  { value: '3+', label: 'years in front-end development' },
+  { value: '1+', label: 'years in front-end development' },
   { value: '35+', label: 'interfaces, pages, and flows delivered' },
   { value: '92', label: 'performance score target' },
   { value: '8', label: 'component systems improved' },
@@ -294,7 +294,7 @@ const experience = [
   {
     role: 'Front End Developer',
     company: 'Freelance / Contract',
-    period: '2023 - Present',
+    period: '2026 - Present',
     stack: 'React, TypeScript, Tailwind CSS, Vite',
     bullets: [
       'Build responsive websites and web apps with React, modern CSS, and component-driven architecture.',
@@ -304,9 +304,9 @@ const experience = [
     ],
   },
   {
-    role: 'Junior Web Developer',
-    company: 'Digital Studio',
-    period: '2021 - 2023',
+    role: 'Internship Front End Developer',
+    company: 'BSW TECH',
+    period: '2025 - 2026',
     stack: 'HTML, CSS, JavaScript, CMS templates',
     bullets: [
       'Shipped landing pages, admin screens, and reusable UI sections for client projects.',
@@ -356,10 +356,10 @@ const professionalDetails = [
 
 const credentials = [
   {
-    title: 'Bachelor in Computer Science',
-    detail: 'University of Technology, 2017 - 2021',
+    title: 'Student of Tehnical University of Moldova',
+    detail: 'Faculty of Computers, Informatics and Microelectronics, 2024 - 2028',
     focus: 'Programming fundamentals, databases, software design, and web technologies.',
-    status: 'Degree',
+    status: 'Student',
   },
   {
     title: 'Front-End Engineering',
@@ -368,10 +368,22 @@ const credentials = [
     status: 'Specialization',
   },
   {
+    title: 'Front-End Development Certificate',
+    detail: 'STEP IT Academy',
+    focus: 'Front-end fundamentals, responsive layouts, JavaScript, React practice, and project-based UI development.',
+    status: 'Certificate',
+  },
+  {
+    title: 'English B2 Certificate',
+    detail: 'Friendly School',
+    focus: 'Upper-intermediate English communication for technical collaboration, documentation, and team discussions.',
+    status: 'Certificate',
+  },
+  {
     title: 'Professional Development',
     detail: 'Design systems, API integration, and modern front-end tooling.',
     focus: 'Design tokens, API-connected interfaces, Git workflow, and documentation habits.',
-    status: 'Continuous',
+    status: 'Internship',
   },
   {
     title: 'Accessibility Practice',

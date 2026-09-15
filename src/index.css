@@ -1931,9 +1931,12 @@ li::marker {
   .role-signal-grid,
   .systems-row,
   .achievement-grid,
-  .education-grid,
   .contact-methods {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .education-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .strength-grid,
@@ -2184,13 +2187,27 @@ li::marker {
   }
 
   .education-card {
-    grid-template-columns: 22mm minmax(0, 1fr);
-    gap: 2mm;
+    grid-template-columns: 1fr;
+    gap: 1mm;
   }
 
   .education-card > span {
+    justify-content: flex-start;
+    width: fit-content;
     min-height: auto;
-    padding: 4px;
+    padding: 2px 5px;
+    font-size: 0.72rem;
+  }
+
+  .education-card p {
+    margin-bottom: 2px;
+    font-size: 0.82rem;
+    line-height: 1.18;
+  }
+
+  .education-card small {
+    font-size: 0.76rem;
+    line-height: 1.18;
   }
 
   .process-list li {
