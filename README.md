@@ -1,19 +1,19 @@
-# React + Vite
+# Online CV
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Interactive React/Vite CV for Cornita Cristian. The app includes a responsive online CV, project case studies, professional details, education and certificates, and compact print styles for PDF export.
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm run dev
+npm run build
+npm run lint
+```
 
-## React Compiler
+## Structure
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- `src/App.jsx` contains the CV content and React rendering.
+- `src/index.css` contains the screen, responsive, and print layouts.
+- `public/favicon.svg` is the browser favicon.
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Use the `Print CV` button or browser print preview to export the print-optimized version.

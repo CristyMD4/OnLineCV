@@ -65,8 +65,6 @@ button {
 .summary-strip span,
 .role-signal-grid article,
 .hero-actions a,
-.hero-actions button,
-.copy-status,
 .hero-copy,
 .profile-panel,
 .avatar-card,
@@ -101,8 +99,7 @@ button {
 .tool-list span,
 .contact-footer,
 .contact-footer a,
-.contact-methods a,
-.footer-actions a {
+.contact-methods a {
   transition:
     transform 180ms ease,
     border-color 180ms ease,
@@ -245,7 +242,6 @@ button:focus-visible {
 
 .summary-strip span,
 .hero-actions a,
-.hero-actions button,
 .skill-list span,
 .stack-list small {
   display: inline-flex;
@@ -257,10 +253,6 @@ button:focus-visible {
   color: var(--graphite);
   font-size: 0.9rem;
   font-weight: 760;
-}
-
-.hero-actions button {
-  padding: 0 14px;
 }
 
 .summary-strip span {
@@ -321,17 +313,9 @@ h1 {
   padding: 0 14px;
 }
 
-.hero-actions a:hover,
-.hero-actions button:hover {
+.hero-actions a:hover {
   border-color: var(--teal);
   color: var(--teal);
-}
-
-.copy-status {
-  margin: 12px 0 0;
-  color: var(--teal);
-  font-size: 0.95rem;
-  font-weight: 800;
 }
 
 .role-signal-grid {
@@ -1298,50 +1282,112 @@ li::marker {
 }
 
 .education-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: start;
 }
 
 .education-card {
-  display: grid;
-  grid-template-columns: 128px minmax(0, 1fr);
-  gap: 18px;
-  min-height: 150px;
-  padding: 20px;
+  --credential-color: var(--blue);
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: 1fr;
+  align-items: start;
+  width: calc(50% - 9px);
+  min-height: 182px;
+  padding: 22px 24px 20px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: var(--surface);
+  background: #ffffff;
+  box-shadow: 0 16px 34px rgb(23 35 49 / 7%);
 }
 
-.education-card > span {
+.education-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.education-status {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 38px;
-  align-self: start;
-  border-radius: 6px;
-  background: var(--graphite);
+  width: fit-content;
+  min-height: 24px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: var(--credential-color);
   color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.education-card-header small {
+  color: var(--quiet);
   font-size: 0.82rem;
-  font-weight: 850;
+  font-weight: 750;
+  white-space: nowrap;
 }
 
 .education-card h3 {
   margin-bottom: 6px;
-  color: var(--blue);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.18rem;
+  font-weight: 850;
+  line-height: 1.18;
 }
 
 .education-card p {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   color: var(--ink);
+  font-size: 0.96rem;
   font-weight: 750;
+  line-height: 1.35;
 }
 
 .education-card small {
   color: var(--muted);
   font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.education-accent {
+  display: block;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.education-accent::after {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--credential-color);
+}
+
+.education-card--student {
+  --credential-color: #0f3f76;
+}
+
+.education-card--specialization,
+.education-card--practice {
+  --credential-color: #4322a2;
+}
+
+.education-card--certificate {
+  --credential-color: #0b7441;
+}
+
+.education-card--internship {
+  --credential-color: #a24a17;
 }
 
 .tool-list {
@@ -1377,13 +1423,6 @@ li::marker {
   max-width: 650px;
 }
 
-.footer-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
 .contact-methods {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1392,8 +1431,7 @@ li::marker {
 }
 
 .contact-footer a,
-.contact-methods a,
-.footer-actions a {
+.contact-methods a {
   min-height: 72px;
   padding: 14px;
   border-radius: 6px;
@@ -1433,7 +1471,6 @@ li::marker {
 
   .summary-strip span:hover,
   .hero-actions a:hover,
-  .hero-actions button:hover,
   .stack-list small:hover,
   .scope-list small:hover,
   .skill-list span:hover,
@@ -1535,8 +1572,7 @@ li::marker {
 
   .case-link:hover,
   .contact-footer a:hover,
-  .contact-methods a:hover,
-  .footer-actions a:hover {
+  .contact-methods a:hover {
     background: var(--teal);
     color: #ffffff;
     transform: translateY(-2px);
@@ -1606,6 +1642,7 @@ li::marker {
 
   .education-card {
     grid-template-columns: 1fr;
+    width: 100%;
   }
 }
 
@@ -1639,9 +1676,8 @@ li::marker {
   }
 
   .hero-actions a,
-  .hero-actions button,
   .contact-footer a,
-  .footer-actions a {
+  .contact-methods a {
     width: 100%;
     justify-content: center;
   }
@@ -1665,7 +1701,6 @@ li::marker {
   }
 
   .contact-footer,
-  .footer-actions,
   .split-heading {
     display: grid;
   }
@@ -1757,9 +1792,7 @@ li::marker {
   }
 
   .topbar,
-  .project-switcher,
-  .copy-status,
-  .hero-actions button {
+  .project-switcher {
     display: none !important;
   }
 
@@ -1805,7 +1838,6 @@ li::marker {
 
   .summary-strip span,
   .hero-actions a,
-  .hero-actions button,
   .skill-list span,
   .stack-list small,
   .stack-matrix span,
@@ -1936,6 +1968,7 @@ li::marker {
   }
 
   .education-grid {
+    display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
@@ -2189,14 +2222,24 @@ li::marker {
   .education-card {
     grid-template-columns: 1fr;
     gap: 1mm;
+    min-height: 0;
+    width: auto;
   }
 
-  .education-card > span {
+  .education-card-header {
+    margin-bottom: 1mm;
+  }
+
+  .education-status {
     justify-content: flex-start;
     width: fit-content;
     min-height: auto;
     padding: 2px 5px;
     font-size: 0.72rem;
+  }
+
+  .education-accent {
+    padding-top: 1.5mm;
   }
 
   .education-card p {
@@ -2235,8 +2278,7 @@ li::marker {
   }
 
   .contact-footer a,
-  .contact-methods a,
-  .footer-actions a {
+  .contact-methods a {
     min-height: auto;
     padding: 2mm;
   }

@@ -356,10 +356,11 @@ const professionalDetails = [
 
 const credentials = [
   {
-    title: 'Student of Tehnical University of Moldova',
-    detail: 'Faculty of Computers, Informatics and Microelectronics, 2024 - 2028',
+    title: 'Technical University of Moldova',
+    detail: 'Faculty of Computers, Informatics and Microelectronics',
     focus: 'Programming fundamentals, databases, software design, and web technologies.',
     status: 'Student',
+    period: '2024 - 2028',
   },
   {
     title: 'Front-End Engineering',
@@ -419,7 +420,6 @@ const contactMethods = [
 
 function App() {
   const [selectedProjectId, setSelectedProjectId] = useState(projects[0].id)
-  const [copyStatus, setCopyStatus] = useState('')
   const [isHeaderHidden, setIsHeaderHidden] = useState(false)
   const lastScrollY = useRef(0)
   const ticking = useRef(false)
@@ -462,15 +462,6 @@ function App() {
 
   function handleProjectSelect(projectId) {
     setSelectedProjectId(projectId)
-  }
-
-  async function handleCopyEmail() {
-    try {
-      await navigator.clipboard.writeText(identity.email)
-      setCopyStatus('Email copied')
-    } catch {
-      setCopyStatus('Use the email link above')
-    }
   }
 
   return (
@@ -526,9 +517,6 @@ function App() {
             <a href={identity.linkedin} target="_blank" rel="noreferrer">
               LinkedIn
             </a>
-            <button type="button" onClick={handleCopyEmail}>
-              Copy Email
-            </button>
           </div>
           <div className="role-signal-grid" aria-label="Role focus">
             {roleSignals.map((signal) => (
@@ -538,11 +526,6 @@ function App() {
               </article>
             ))}
           </div>
-          {copyStatus && (
-            <p className="copy-status" aria-live="polite">
-              {copyStatus}
-            </p>
-          )}
         </div>
 
         <aside className="profile-panel" aria-label="Career snapshot">
@@ -775,13 +758,18 @@ function App() {
             </div>
             <div className="education-grid">
               {credentials.map((item) => (
-                <article className="education-card" key={item.title}>
-                  <span>{item.status}</span>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.detail}</p>
-                    <small>{item.focus}</small>
+                <article
+                  className={`education-card education-card--${item.status.toLowerCase()}`}
+                  key={item.title}
+                >
+                  <div className="education-card-header">
+                    <span className="education-status">{item.status}</span>
+                    {item.period && <small>{item.period}</small>}
                   </div>
+                  <h3>{item.title}</h3>
+                  <p>{item.detail}</p>
+                  <small>{item.focus}</small>
+                  <span className="education-accent" aria-hidden="true" />
                 </article>
               ))}
             </div>
