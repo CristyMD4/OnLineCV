@@ -1,0 +1,1143 @@
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
+
+const en = {
+  ui: {
+    nav: {
+      projects: 'Projects',
+      experience: 'Experience',
+      skills: 'Skills',
+      stack: 'Stack',
+      standards: 'Standards',
+      impact: 'Impact',
+      fit: 'Fit',
+      details: 'Details',
+      contact: 'Contact',
+    },
+    actions: {
+      downloadPdf: 'Download PDF',
+      printCv: 'Print CV',
+      viewRepository: 'View repository',
+    },
+    aria: {
+      navigation: 'Page navigation',
+      highlights: 'Professional highlights',
+      contactLinks: 'Contact links',
+      roleFocus: 'Role focus',
+      careerSnapshot: 'Career snapshot',
+      avatar: 'Candidate avatar',
+      capabilityOverview: 'Capability overview',
+      projectCases: 'Project case studies',
+      projectPreview: 'Project preview',
+      contactMethods: 'Contact methods',
+      languageSwitcher: 'Language selector',
+      proficiency: '{{title}} proficiency {{score}} percent',
+    },
+    labels: {
+      developerProfile: 'Developer Profile',
+      open: 'Open',
+      role: 'Role',
+      duration: 'Duration',
+      challenge: 'Challenge',
+      solution: 'Solution',
+      highlights: 'Highlights',
+      scope: 'Scope',
+      deliverables: 'Deliverables',
+      techStack: 'Tech stack',
+      email: 'Email',
+      github: 'GitHub',
+      location: 'Location',
+    },
+    sections: {
+      profileEyebrow: 'Front-end developer',
+      impactEyebrow: 'Impact',
+      impactTitle: 'Evidence Of Strong Delivery',
+      impactSubtitle: 'Measurable improvements across performance, usability, and consistency.',
+      strengthsEyebrow: 'Strengths',
+      strengthsTitle: 'How I Create Value',
+      strengthsSubtitle: 'Practical habits that make projects easier to ship and maintain.',
+      projectsEyebrow: 'Case Studies',
+      projectsTitle: 'Project Lab',
+      projectsSubtitle: 'Short project summaries with role, stack, key output, and links.',
+      experienceEyebrow: 'Experience',
+      experienceTitle: 'Selected Work History',
+      educationEyebrow: 'Education',
+      educationTitle: 'Training And Professional Growth',
+      educationSubtitle: 'Formal study supported by continuous front-end practice.',
+      workflowEyebrow: 'Workflow',
+      workflowTitle: 'Delivery System',
+      workflowSubtitle: 'Clear steps from planning to polished handoff.',
+      collaborationEyebrow: 'Collaboration',
+      collaborationTitle: 'Working Style',
+      detailsEyebrow: 'Details',
+      detailsTitle: 'Professional Details',
+      skillsEyebrow: 'Toolkit',
+      skillsTitle: 'Skill Architecture',
+      stackEyebrow: 'Stack Matrix',
+      stackTitle: 'Technical Coverage',
+      standardsEyebrow: 'Engineering Standards',
+      standardsTitle: 'Production Ready UI',
+      fitEyebrow: 'Role Fit',
+      fitTitle: 'What I Bring',
+      toolsEyebrow: 'Tools',
+      toolsTitle: 'Daily Stack',
+      languagesEyebrow: 'Communication',
+      languagesTitle: 'Languages',
+      contactEyebrow: 'Contact',
+      contactTitle: 'Available for front-end development roles',
+    },
+  },
+  identity: {
+    role: 'Front End Developer',
+    location: 'Chisinau, Moldova',
+    availability: 'Available for junior front-end roles',
+    workMode: 'Remote, hybrid, or on-site collaboration',
+    summary:
+      'Front-end developer focused on React product interfaces, accessible user flows, and maintainable UI systems for teams that value polish, speed, and reliable delivery.',
+    profileSummary:
+      'I combine UI craft, product thinking, and practical engineering habits to ship interfaces that teams can keep improving.',
+  },
+  summaryStrip: ['React Developer', 'Accessible UI', 'Product Interfaces'],
+  metrics: [
+    { value: '1+', label: 'years in front-end development' },
+    { value: '35+', label: 'interfaces, pages, and flows delivered' },
+    { value: '92', label: 'performance score target' },
+    { value: '8', label: 'component systems improved' },
+  ],
+  skillGroups: [
+    {
+      title: 'Interface Architecture',
+      score: 92,
+      items: ['React', 'Component Design', 'State Patterns', 'Routing', 'Reusable APIs'],
+    },
+    {
+      title: 'Visual Implementation',
+      score: 88,
+      items: ['CSS Grid', 'Responsive Layouts', 'Tailwind CSS', 'Design Tokens', 'Motion Polish'],
+    },
+    {
+      title: 'Product Quality',
+      score: 84,
+      items: ['Accessibility', 'Performance', 'QA Support', 'Code Review', 'Documentation'],
+    },
+    {
+      title: 'Integration',
+      score: 79,
+      items: ['REST APIs', 'Forms', 'Validation', 'Auth Flows', 'Git Workflow'],
+    },
+  ],
+  achievements: [
+    {
+      title: 'Performance Recovery',
+      detail:
+        'Reduced landing page load time by 38% using image optimization, leaner component loading, and CSS cleanup.',
+    },
+    {
+      title: 'Accessible Forms',
+      detail:
+        'Built reusable form patterns with keyboard navigation, validation states, and consistent error messaging.',
+    },
+    {
+      title: 'Design System Handoff',
+      detail:
+        'Created component documentation that shortened handoff time between design and engineering.',
+    },
+    {
+      title: 'Mobile Conversion Flow',
+      detail:
+        'Improved mobile checkout clarity by simplifying steps, visual hierarchy, and interaction feedback.',
+    },
+  ],
+  strengths: [
+    {
+      title: 'UI precision',
+      text: 'Comfortable matching design intent closely, including spacing rhythm, typography, responsive states, and visual hierarchy.',
+    },
+    {
+      title: 'Maintainable code',
+      text: 'Prefers small reusable components, clear naming, predictable state, and styles that another developer can safely extend.',
+    },
+    {
+      title: 'User-centered decisions',
+      text: 'Looks beyond the screen layout to reduce confusion, improve flows, and make interface states easier to understand.',
+    },
+  ],
+  roleFit: [
+    {
+      title: 'Best Fit',
+      text: 'React front-end roles where product quality, responsive UI, and maintainable components matter.',
+    },
+    {
+      title: 'Strongest Value',
+      text: 'Turning designs and requirements into clear interfaces with realistic states and careful polish.',
+    },
+    {
+      title: 'Team Impact',
+      text: 'Easy handoff, steady communication, clean code habits, and willingness to improve existing screens.',
+    },
+  ],
+  roleSignals: [
+    {
+      title: 'Product UI Engineering',
+      text: 'Turns requirements into responsive interfaces with clear states, predictable behavior, and thoughtful content structure.',
+    },
+    {
+      title: 'Front-End Systems',
+      text: 'Builds reusable components, design-token habits, and layout rules that keep screens consistent as products grow.',
+    },
+    {
+      title: 'Quality Ownership',
+      text: 'Checks accessibility, performance, browser behavior, and interaction details before handoff.',
+    },
+  ],
+  engineeringStandards: [
+    {
+      title: 'Accessible by default',
+      detail: 'Semantic HTML, keyboard paths, visible focus states, readable contrast, and practical form feedback.',
+      proof: 'WCAG-aware UI',
+    },
+    {
+      title: 'Performance-minded builds',
+      detail: 'Lean component structure, careful asset loading, CSS cleanup, and Lighthouse-oriented review.',
+      proof: 'Fast interfaces',
+    },
+    {
+      title: 'Component discipline',
+      detail: 'Reusable layout primitives, clear prop boundaries, naming conventions, and documented UI states.',
+      proof: 'Reusable patterns',
+    },
+    {
+      title: 'Responsive QA',
+      detail: 'Mobile spacing, desktop density, browser differences, loading states, and empty states checked early.',
+      proof: 'Reliable screens',
+    },
+  ],
+  stackMatrix: [
+    { area: 'Frontend', tools: ['React', 'Vite', 'JavaScript', 'TypeScript', 'React Router'] },
+    { area: 'Styling', tools: ['CSS Grid', 'Responsive CSS', 'Tailwind CSS', 'Design Tokens'] },
+    { area: 'Forms & Data', tools: ['React Hook Form', 'Zod', 'REST APIs', 'Validation States'] },
+    { area: 'Quality', tools: ['Accessibility', 'Lighthouse', 'Git Workflow', 'Browser QA'] },
+  ],
+  projects: [
+    {
+      id: 'mrstweb',
+      name: 'MRSTWeb / LuxWash Platform',
+      type: 'Full-stack personal project',
+      role: 'Front-end architecture, booking flows, admin UI, and API integration',
+      duration: 'Personal project',
+      stack: ['React', 'Vite', 'React Router', 'i18next', 'React Hook Form', 'Zod', 'ASP.NET Core', 'Entity Framework Core', 'SQL Server', 'JWT Auth'],
+      metric: 'Client + admin + employee flows',
+      preview: { label: 'Service platform', title: 'Booking, shop, and dashboard flows', stats: ['4 user areas', 'JWT access', 'SQL data model'] },
+      scope: ['Public service pages', 'Booking flow', 'Shop and cart', 'Client account', 'Admin dashboard', 'Employee dashboard'],
+      challenge:
+        'A service business platform needed public pages, customer booking, product shopping, and operational dashboards in one coherent web experience.',
+      solution:
+        'Built a routed React front end with multilingual content, booking and account areas, shop/cart pages, admin management screens, and employee dashboard views backed by a structured .NET API.',
+      impact:
+        'The project demonstrates end-to-end product thinking across customer experience, internal operations, authentication, data models, and maintainable UI architecture.',
+      deliverables: ['Booking flow', 'Service catalog', 'Shop and cart', 'Client account area', 'Admin dashboard', 'Employee dashboard', 'JWT-protected API', 'SQL Server data model'],
+      highlights: [
+        'Built public, client, admin, and employee flows inside one routed React application.',
+        'Used React Hook Form, Zod, and JWT-aware screens for cleaner validation and protected user journeys.',
+        'Connected the interface to an ASP.NET Core, Entity Framework, and SQL Server back-end structure.',
+      ],
+    },
+    {
+      id: 'analytics',
+      name: 'Portfolio Dashboard',
+      type: 'React analytics interface',
+      role: 'Front-end implementation and UI architecture',
+      duration: '4 weeks',
+      stack: ['React', 'Vite', 'CSS Grid', 'REST data'],
+      metric: '42% faster filtering',
+      preview: { label: 'Analytics UI', title: 'KPI scanning and filter workspace', stats: ['KPI cards', 'Fast filters', 'Loading states'] },
+      challenge:
+        'A dashboard needed dense data views without becoming visually heavy or slow on mid-range laptops.',
+      solution:
+        'Created reusable summary panels, responsive table regions, and lightweight client-side filtering patterns.',
+      impact:
+        'Users could scan KPIs, compare states, and move between filtered views with fewer layout shifts.',
+      deliverables: ['KPI cards', 'Responsive table layout', 'Filter state model', 'Empty and loading states'],
+      highlights: [
+        'Designed KPI cards, filter controls, and responsive data regions for quick scanning.',
+        'Kept filtering lightweight on the client to improve perceived speed.',
+        'Added empty and loading states so the dashboard felt complete in realistic data conditions.',
+      ],
+    },
+    {
+      id: 'commerce',
+      name: 'E-commerce Interface',
+      type: 'Product purchase flow',
+      role: 'Mobile-first interface build',
+      duration: '5 weeks',
+      stack: ['React', 'JavaScript', 'Tailwind CSS', 'Accessible Forms'],
+      metric: '31% fewer checkout steps',
+      preview: { label: 'Commerce flow', title: 'Mobile-first product and checkout path', stats: ['Cart states', 'Form feedback', 'Touch layout'] },
+      challenge:
+        'The shopping flow had inconsistent mobile states and too many unclear transition points.',
+      solution:
+        'Rebuilt product cards, cart states, and checkout steps around simpler hierarchy and persistent feedback.',
+      impact:
+        'Customers had a clearer path from browsing to purchase, especially on small screens.',
+      deliverables: ['Product grid', 'Cart summary', 'Checkout states', 'Form validation patterns'],
+      highlights: [
+        'Reworked product browsing, cart review, and checkout steps around mobile-first use.',
+        'Improved form labels, validation messages, and touch target spacing.',
+        'Kept order details visible so customers could move through checkout with less confusion.',
+      ],
+    },
+    {
+      id: 'system',
+      name: 'Design System Starter',
+      type: 'Component library foundation',
+      role: 'Component documentation and UI standards',
+      duration: '3 weeks',
+      stack: ['React', 'CSS Tokens', 'Documentation', 'UI Governance'],
+      metric: '6 reusable patterns',
+      preview: { label: 'UI system', title: 'Reusable components and state rules', stats: ['Tokens', 'Forms', 'Usage notes'] },
+      challenge:
+        'Teams were recreating similar buttons, forms, and spacing rules across project screens.',
+      solution:
+        'Defined shared tokens, component rules, usage notes, and examples for the most common UI patterns.',
+      impact:
+        'New screens became easier to ship consistently, with fewer visual regressions during review.',
+      deliverables: ['Button rules', 'Form examples', 'Spacing tokens', 'Usage documentation'],
+      highlights: [
+        'Defined reusable rules for buttons, forms, spacing, and common UI states.',
+        'Created small documentation examples for easier design-to-development handoff.',
+        'Reduced repeated styling decisions by turning common patterns into shared standards.',
+      ],
+    },
+  ],
+  experience: [
+    {
+      role: 'Front End Developer',
+      company: 'Freelance / Contract',
+      period: '2026 - Present',
+      stack: 'React, TypeScript, Tailwind CSS, Vite',
+      bullets: [
+        'Build responsive websites and web apps with React, modern CSS, and component-driven architecture.',
+        'Translate Figma layouts into polished interfaces with careful spacing, typography, and state handling.',
+        'Improve page speed, accessibility, and maintainability across existing front-end codebases.',
+        'Partner with clients to define scope, estimate delivery, and turn feedback into focused interface updates.',
+      ],
+    },
+    {
+      role: 'Internship Front End Developer',
+      company: 'BSW TECH',
+      period: '2025 - 2026',
+      stack: 'HTML, CSS, JavaScript, CMS templates',
+      bullets: [
+        'Shipped landing pages, admin screens, and reusable UI sections for client projects.',
+        'Collaborated with designers and back-end developers to integrate APIs and refine user flows.',
+        'Maintained clean Git workflows and reviewed UI changes before release.',
+        'Supported QA by fixing layout issues, browser inconsistencies, and accessibility defects.',
+      ],
+    },
+  ],
+  workflow: [
+    { label: 'Discover', text: 'Clarify user goals, content priorities, edge cases, and technical constraints.' },
+    { label: 'Systemize', text: 'Define layout rules, reusable components, states, and responsive behavior.' },
+    { label: 'Build', text: 'Implement semantic React views with accessible controls and resilient CSS.' },
+    { label: 'Refine', text: 'Review performance, polish interactions, test layouts, and prepare handoff.' },
+  ],
+  tools: ['VS Code', 'Figma', 'Chrome DevTools', 'GitHub', 'npm', 'Vercel-style deployments', 'Lighthouse', 'Postman'],
+  credentials: [
+    {
+      title: 'Technical University of Moldova',
+      detail: 'Faculty of Computers, Informatics and Microelectronics',
+      focus: 'Programming fundamentals, databases, software design, and web technologies.',
+      status: 'Student',
+      period: '2024 - 2028',
+    },
+    {
+      title: 'Front-End Engineering',
+      detail: 'Advanced React, accessibility, testing, and performance.',
+      focus: 'Component architecture, routing patterns, state handling, and production UI quality.',
+      status: 'Specialization',
+    },
+    {
+      title: 'Front-End Development Certificate',
+      detail: 'STEP IT Academy',
+      focus: 'Front-end fundamentals, responsive layouts, JavaScript, React practice, and project-based UI development.',
+      status: 'Certificate',
+    },
+    {
+      title: 'English B2 Certificate',
+      detail: 'Friendly School',
+      focus: 'Upper-intermediate English communication for technical collaboration, documentation, and team discussions.',
+      status: 'Certificate',
+    },
+    {
+      title: 'Professional Development',
+      detail: 'Design systems, API integration, and modern front-end tooling.',
+      focus: 'Design tokens, API-connected interfaces, Git workflow, and documentation habits.',
+      status: 'Internship',
+    },
+    {
+      title: 'Accessibility Practice',
+      detail: 'Semantic HTML, keyboard flows, contrast checks, and form feedback.',
+      focus: 'Practical accessibility reviews for forms, navigation, focus states, and responsive layouts.',
+      status: 'Practice',
+    },
+  ],
+  collaboration: [
+    'Clear progress updates and practical tradeoff notes during implementation.',
+    'Comfortable working from Figma files, written specs, user stories, or existing code.',
+    'Careful with details that usually cause friction: loading states, empty states, mobile spacing, and browser differences.',
+  ],
+  professionalDetails: {
+    location: 'Location',
+    availability: 'Availability',
+    workMode: 'Work mode',
+    focus: 'Focus',
+    focusValue: 'React product interfaces, responsive websites, and UI systems',
+  },
+  languages: [
+    { title: 'English', text: 'Professional working proficiency' },
+    { title: 'Romanian', text: 'Native or bilingual proficiency' },
+  ],
+}
+
+const ro = {
+  ui: {
+    nav: {
+      projects: 'Proiecte',
+      experience: 'Experienta',
+      skills: 'Competente',
+      stack: 'Stack',
+      standards: 'Standarde',
+      impact: 'Impact',
+      fit: 'Potrivire',
+      details: 'Detalii',
+      contact: 'Contact',
+    },
+    actions: {
+      downloadPdf: 'Descarca PDF',
+      printCv: 'Printeaza CV',
+      viewRepository: 'Vezi repository',
+    },
+    aria: {
+      navigation: 'Navigarea paginii',
+      highlights: 'Repere profesionale',
+      contactLinks: 'Linkuri de contact',
+      roleFocus: 'Focus profesional',
+      careerSnapshot: 'Profil profesional',
+      avatar: 'Avatar candidat',
+      capabilityOverview: 'Prezentare competente',
+      projectCases: 'Studii de caz proiecte',
+      projectPreview: 'Previzualizare proiect',
+      contactMethods: 'Metode de contact',
+      languageSwitcher: 'Selector de limba',
+      proficiency: '{{title}} competenta {{score}} procente',
+    },
+    labels: {
+      developerProfile: 'Profil Developer',
+      open: 'Disponibil',
+      role: 'Rol',
+      duration: 'Durata',
+      challenge: 'Provocare',
+      solution: 'Solutie',
+      highlights: 'Repere',
+      scope: 'Scop',
+      deliverables: 'Livrabile',
+      techStack: 'Stack tehnic',
+      email: 'Email',
+      github: 'GitHub',
+      location: 'Locatie',
+    },
+    sections: {
+      profileEyebrow: 'Front-end developer',
+      impactEyebrow: 'Impact',
+      impactTitle: 'Dovezi De Livrare Solida',
+      impactSubtitle: 'Imbunatatiri masurabile in performanta, utilizare si consistenta.',
+      strengthsEyebrow: 'Puncte Forte',
+      strengthsTitle: 'Cum Creez Valoare',
+      strengthsSubtitle: 'Obiceiuri practice care ajuta proiectele sa fie livrate si mentinute mai usor.',
+      projectsEyebrow: 'Studii De Caz',
+      projectsTitle: 'Laborator De Proiecte',
+      projectsSubtitle: 'Rezumat scurt cu rol, stack, rezultat principal si linkuri.',
+      experienceEyebrow: 'Experienta',
+      experienceTitle: 'Istoric Profesional Selectat',
+      educationEyebrow: 'Educatie',
+      educationTitle: 'Training Si Crestere Profesionala',
+      educationSubtitle: 'Studii formale sustinute de practica continua in front-end.',
+      workflowEyebrow: 'Workflow',
+      workflowTitle: 'Sistem De Livrare',
+      workflowSubtitle: 'Pasi clari de la planificare la predare finisata.',
+      collaborationEyebrow: 'Colaborare',
+      collaborationTitle: 'Stil De Lucru',
+      detailsEyebrow: 'Detalii',
+      detailsTitle: 'Detalii Profesionale',
+      skillsEyebrow: 'Toolkit',
+      skillsTitle: 'Arhitectura Competentelor',
+      stackEyebrow: 'Matrice Stack',
+      stackTitle: 'Acoperire Tehnica',
+      standardsEyebrow: 'Standarde Engineering',
+      standardsTitle: 'UI Gata De Productie',
+      fitEyebrow: 'Potrivire Rol',
+      fitTitle: 'Ce Aduc In Echipa',
+      toolsEyebrow: 'Instrumente',
+      toolsTitle: 'Stack Zilnic',
+      languagesEyebrow: 'Comunicare',
+      languagesTitle: 'Limbi',
+      contactEyebrow: 'Contact',
+      contactTitle: 'Disponibil pentru roluri de front-end development',
+    },
+  },
+  identity: {
+    role: 'Front End Developer',
+    location: 'Chisinau, Moldova',
+    availability: 'Disponibil pentru roluri junior front-end',
+    workMode: 'Remote, hybrid sau colaborare la birou',
+    summary:
+      'Front-end developer concentrat pe interfete React, fluxuri accesibile si sisteme UI mentenabile pentru echipe care apreciaza calitatea, viteza si livrarea sigura.',
+    profileSummary:
+      'Combin atentia pentru UI, gandirea de produs si obiceiurile tehnice practice pentru a livra interfete pe care echipele le pot imbunatati usor.',
+  },
+  summaryStrip: ['React Developer', 'UI accesibil', 'Interfete de produs'],
+  metrics: [
+    { value: '1+', label: 'ani in front-end development' },
+    { value: '35+', label: 'interfete, pagini si fluxuri livrate' },
+    { value: '92', label: 'tinta scor performanta' },
+    { value: '8', label: 'sisteme de componente imbunatatite' },
+  ],
+  skillGroups: [
+    {
+      title: 'Arhitectura Interfetelor',
+      score: 92,
+      items: ['React', 'Design componente', 'Pattern-uri state', 'Routing', 'API-uri reutilizabile'],
+    },
+    {
+      title: 'Implementare Vizuala',
+      score: 88,
+      items: ['CSS Grid', 'Layout-uri responsive', 'Tailwind CSS', 'Design tokens', 'Motion polish'],
+    },
+    {
+      title: 'Calitate Produs',
+      score: 84,
+      items: ['Accesibilitate', 'Performanta', 'Suport QA', 'Code review', 'Documentatie'],
+    },
+    {
+      title: 'Integrare',
+      score: 79,
+      items: ['REST APIs', 'Formulare', 'Validare', 'Fluxuri auth', 'Git workflow'],
+    },
+  ],
+  achievements: [
+    {
+      title: 'Recuperare Performanta',
+      detail:
+        'Am redus timpul de incarcare al unei landing page cu 38% prin optimizarea imaginilor, incarcarea mai eficienta a componentelor si curatarea CSS.',
+    },
+    {
+      title: 'Formulare Accesibile',
+      detail:
+        'Am construit pattern-uri reutilizabile pentru formulare cu navigare din tastatura, stari de validare si mesaje de eroare consistente.',
+    },
+    {
+      title: 'Handoff Design System',
+      detail:
+        'Am creat documentatie pentru componente care a redus timpul de handoff intre design si engineering.',
+    },
+    {
+      title: 'Flux Mobile Conversion',
+      detail:
+        'Am imbunatatit claritatea checkout-ului pe mobil prin simplificarea pasilor, a ierarhiei vizuale si a feedbackului de interactiune.',
+    },
+  ],
+  strengths: [
+    {
+      title: 'Precizie UI',
+      text: 'Pot reproduce atent intentia de design, inclusiv ritmul spatiilor, tipografia, starile responsive si ierarhia vizuala.',
+    },
+    {
+      title: 'Cod mentenabil',
+      text: 'Prefer componente mici si reutilizabile, denumiri clare, state predictibil si stiluri usor de extins de alt developer.',
+    },
+    {
+      title: 'Decizii centrate pe utilizator',
+      text: 'Privesc dincolo de layout pentru a reduce confuzia, a imbunatati fluxurile si a face starile interfetei mai clare.',
+    },
+  ],
+  roleFit: [
+    {
+      title: 'Potrivire buna',
+      text: 'Roluri React front-end unde conteaza calitatea produsului, UI responsive si componente mentenabile.',
+    },
+    {
+      title: 'Valoare principala',
+      text: 'Transform designuri si cerinte in interfete clare cu stari realiste si finisaj atent.',
+    },
+    {
+      title: 'Impact in echipa',
+      text: 'Handoff usor, comunicare constanta, obiceiuri de cod curate si dorinta de a imbunatati ecrane existente.',
+    },
+  ],
+  roleSignals: [
+    {
+      title: 'Product UI Engineering',
+      text: 'Transform cerinte in interfete responsive cu stari clare, comportament predictibil si structura de continut atent gandita.',
+    },
+    {
+      title: 'Sisteme Front-End',
+      text: 'Construiesc componente reutilizabile, obiceiuri de design tokens si reguli de layout care pastreaza consistenta.',
+    },
+    {
+      title: 'Ownership pe calitate',
+      text: 'Verific accesibilitatea, performanta, comportamentul in browser si detaliile de interactiune inainte de handoff.',
+    },
+  ],
+  engineeringStandards: [
+    {
+      title: 'Accesibil implicit',
+      detail: 'HTML semantic, trasee din tastatura, focus vizibil, contrast lizibil si feedback practic pentru formulare.',
+      proof: 'UI WCAG-aware',
+    },
+    {
+      title: 'Build-uri orientate spre performanta',
+      detail: 'Structura lean, incarcare atenta a asseturilor, curatare CSS si review orientat spre Lighthouse.',
+      proof: 'Interfete rapide',
+    },
+    {
+      title: 'Disciplina componentelor',
+      detail: 'Primitive reutilizabile, granite clare de props, conventii de numire si stari UI documentate.',
+      proof: 'Pattern-uri reutilizabile',
+    },
+    {
+      title: 'QA responsive',
+      detail: 'Spatii mobile, densitate desktop, diferente de browser, loading states si empty states verificate devreme.',
+      proof: 'Ecrane stabile',
+    },
+  ],
+  stackMatrix: [
+    { area: 'Frontend', tools: ['React', 'Vite', 'JavaScript', 'TypeScript', 'React Router'] },
+    { area: 'Styling', tools: ['CSS Grid', 'CSS responsive', 'Tailwind CSS', 'Design Tokens'] },
+    { area: 'Forms & Data', tools: ['React Hook Form', 'Zod', 'REST APIs', 'Stari validare'] },
+    { area: 'Calitate', tools: ['Accesibilitate', 'Lighthouse', 'Git Workflow', 'Browser QA'] },
+  ],
+  projects: [
+    {
+      id: 'mrstweb',
+      name: 'MRSTWeb / Platforma LuxWash',
+      type: 'Proiect personal full-stack',
+      role: 'Arhitectura front-end, fluxuri de programare, UI admin si integrare API',
+      duration: 'Proiect personal',
+      stack: ['React', 'Vite', 'React Router', 'i18next', 'React Hook Form', 'Zod', 'ASP.NET Core', 'Entity Framework Core', 'SQL Server', 'JWT Auth'],
+      metric: 'Fluxuri client + admin + angajat',
+      preview: { label: 'Platforma servicii', title: 'Programari, shop si dashboard-uri', stats: ['4 zone user', 'JWT access', 'Model SQL'] },
+      scope: ['Pagini publice servicii', 'Flux programare', 'Shop si cos', 'Cont client', 'Dashboard admin', 'Dashboard angajat'],
+      challenge:
+        'O platforma pentru servicii avea nevoie de pagini publice, programari pentru clienti, shop de produse si dashboard-uri operationale intr-o experienta coerenta.',
+      solution:
+        'Am construit un front-end React rutat, cu continut multilingv, zone de programare si cont, pagini shop/cart, ecrane admin si dashboard-uri pentru angajati sustinute de un API .NET structurat.',
+      impact:
+        'Proiectul demonstreaza gandire end-to-end de produs, de la experienta clientului pana la operatiuni interne, autentificare, modele de date si arhitectura UI mentenabila.',
+      deliverables: ['Flux programare', 'Catalog servicii', 'Shop si cos', 'Zona cont client', 'Dashboard admin', 'Dashboard angajat', 'API protejat JWT', 'Model SQL Server'],
+      highlights: [
+        'Am construit fluxuri publice, client, admin si angajat intr-o singura aplicatie React rutata.',
+        'Am folosit React Hook Form, Zod si ecrane JWT-aware pentru validare mai curata si trasee protejate.',
+        'Am conectat interfata la o structura back-end ASP.NET Core, Entity Framework si SQL Server.',
+      ],
+    },
+    {
+      id: 'analytics',
+      name: 'Portfolio Dashboard',
+      type: 'Interfata analytics React',
+      role: 'Implementare front-end si arhitectura UI',
+      duration: '4 saptamani',
+      stack: ['React', 'Vite', 'CSS Grid', 'REST data'],
+      metric: 'Filtrare cu 42% mai rapida',
+      preview: { label: 'Analytics UI', title: 'KPI scanning si workspace de filtre', stats: ['KPI cards', 'Filtre rapide', 'Loading states'] },
+      challenge:
+        'Un dashboard avea nevoie de vizualizari dense de date fara sa devina greu vizual sau lent pe laptopuri medii.',
+      solution:
+        'Am creat panouri de sumar reutilizabile, zone de tabel responsive si pattern-uri usoare de filtrare client-side.',
+      impact:
+        'Utilizatorii puteau scana KPI-uri, compara stari si naviga intre view-uri filtrate cu mai putine layout shifts.',
+      deliverables: ['KPI cards', 'Layout tabel responsive', 'Model state filtre', 'Empty si loading states'],
+      highlights: [
+        'Am proiectat KPI cards, controale de filtrare si zone de date responsive pentru scanare rapida.',
+        'Am pastrat filtrarea usoara pe client pentru a imbunatati viteza perceputa.',
+        'Am adaugat empty si loading states pentru o experienta completa in conditii realiste.',
+      ],
+    },
+    {
+      id: 'commerce',
+      name: 'Interfata E-commerce',
+      type: 'Flux de cumparare produs',
+      role: 'Build mobile-first',
+      duration: '5 saptamani',
+      stack: ['React', 'JavaScript', 'Tailwind CSS', 'Formulare accesibile'],
+      metric: '31% mai putini pasi la checkout',
+      preview: { label: 'Flux commerce', title: 'Produs si checkout mobile-first', stats: ['Cart states', 'Feedback formular', 'Touch layout'] },
+      challenge:
+        'Fluxul de cumparare avea stari mobile inconsistente si prea multe puncte de tranzitie neclare.',
+      solution:
+        'Am reconstruit cardurile de produs, starile cosului si pasii checkout in jurul unei ierarhii mai simple si feedback persistent.',
+      impact:
+        'Clientii au avut un traseu mai clar de la browsing la achizitie, mai ales pe ecrane mici.',
+      deliverables: ['Grid produse', 'Rezumat cos', 'Stari checkout', 'Pattern-uri validare formular'],
+      highlights: [
+        'Am refacut browsing-ul, review-ul cosului si checkout-ul in logica mobile-first.',
+        'Am imbunatatit etichetele, mesajele de validare si spatierea touch targets.',
+        'Am mentinut detaliile comenzii vizibile pentru a reduce confuzia in checkout.',
+      ],
+    },
+    {
+      id: 'system',
+      name: 'Design System Starter',
+      type: 'Fundatie component library',
+      role: 'Documentatie componente si standarde UI',
+      duration: '3 saptamani',
+      stack: ['React', 'CSS Tokens', 'Documentatie', 'UI Governance'],
+      metric: '6 pattern-uri reutilizabile',
+      preview: { label: 'UI system', title: 'Componente reutilizabile si reguli de stare', stats: ['Tokens', 'Forms', 'Usage notes'] },
+      challenge:
+        'Echipele recreau butoane, formulare si reguli de spatiere similare in mai multe ecrane.',
+      solution:
+        'Am definit tokens, reguli de componente, note de utilizare si exemple pentru cele mai frecvente pattern-uri UI.',
+      impact:
+        'Ecranele noi au devenit mai usor de livrat consistent, cu mai putine regresii vizuale in review.',
+      deliverables: ['Reguli butoane', 'Exemple formulare', 'Spacing tokens', 'Documentatie utilizare'],
+      highlights: [
+        'Am definit reguli reutilizabile pentru butoane, formulare, spatiere si stari UI comune.',
+        'Am creat exemple mici de documentatie pentru handoff design-development mai usor.',
+        'Am redus deciziile repetate de styling prin transformarea pattern-urilor in standarde comune.',
+      ],
+    },
+  ],
+  experience: [
+    {
+      role: 'Front End Developer',
+      company: 'Freelance / Contract',
+      period: '2026 - Prezent',
+      stack: 'React, TypeScript, Tailwind CSS, Vite',
+      bullets: [
+        'Construiesc website-uri si aplicatii responsive cu React, CSS modern si arhitectura bazata pe componente.',
+        'Transform layout-uri Figma in interfete finisate cu atentie la spatiere, tipografie si stari.',
+        'Imbunatatesc viteza paginilor, accesibilitatea si mentenabilitatea in codebase-uri front-end existente.',
+        'Colaborez cu clientii pentru a defini scopul, estima livrarea si transforma feedbackul in update-uri clare.',
+      ],
+    },
+    {
+      role: 'Internship Front End Developer',
+      company: 'BSW TECH',
+      period: '2025 - 2026',
+      stack: 'HTML, CSS, JavaScript, template-uri CMS',
+      bullets: [
+        'Am livrat landing pages, ecrane admin si sectiuni UI reutilizabile pentru proiecte client.',
+        'Am colaborat cu designeri si back-end developeri pentru integrarea API-urilor si rafinarea fluxurilor.',
+        'Am mentinut workflow-uri Git curate si am revizuit schimbarile UI inainte de release.',
+        'Am sustinut QA prin rezolvarea problemelor de layout, browser si accesibilitate.',
+      ],
+    },
+  ],
+  workflow: [
+    { label: 'Descoperire', text: 'Clarific obiectivele utilizatorului, prioritatile de continut, cazurile limita si constrangerile tehnice.' },
+    { label: 'Sistematizare', text: 'Definirea regulilor de layout, componentelor reutilizabile, starilor si comportamentului responsive.' },
+    { label: 'Build', text: 'Implementez view-uri React semantice cu controale accesibile si CSS rezistent.' },
+    { label: 'Rafinare', text: 'Revizuiesc performanta, finisez interactiunile, testez layouturile si pregatesc handoff-ul.' },
+  ],
+  tools: ['VS Code', 'Figma', 'Chrome DevTools', 'GitHub', 'npm', 'Deploy-uri tip Vercel', 'Lighthouse', 'Postman'],
+  credentials: [
+    {
+      title: 'Universitatea Tehnica a Moldovei',
+      detail: 'Facultatea Calculatoare, Informatica si Microelectronica',
+      focus: 'Fundamente de programare, baze de date, design software si tehnologii web.',
+      status: 'Student',
+      period: '2024 - 2028',
+    },
+    {
+      title: 'Front-End Engineering',
+      detail: 'React avansat, accesibilitate, testare si performanta.',
+      focus: 'Arhitectura componentelor, routing, state management si calitate UI de productie.',
+      status: 'Specializare',
+    },
+    {
+      title: 'Certificat Front-End Development',
+      detail: 'STEP IT Academy',
+      focus: 'Fundamente front-end, layout-uri responsive, JavaScript, practica React si dezvoltare UI bazata pe proiecte.',
+      status: 'Certificat',
+    },
+    {
+      title: 'Certificat Engleza B2',
+      detail: 'Friendly School',
+      focus: 'Comunicare in engleza upper-intermediate pentru colaborare tehnica, documentatie si discutii de echipa.',
+      status: 'Certificat',
+    },
+    {
+      title: 'Dezvoltare Profesionala',
+      detail: 'Design systems, integrare API si tooling front-end modern.',
+      focus: 'Design tokens, interfete conectate la API, Git workflow si obiceiuri de documentare.',
+      status: 'Internship',
+    },
+    {
+      title: 'Practica Accesibilitate',
+      detail: 'HTML semantic, fluxuri din tastatura, verificari de contrast si feedback pentru formulare.',
+      focus: 'Review-uri practice de accesibilitate pentru formulare, navigare, focus states si layouturi responsive.',
+      status: 'Practica',
+    },
+  ],
+  collaboration: [
+    'Update-uri clare de progres si note practice despre compromisuri in timpul implementarii.',
+    'Pot lucra din fisiere Figma, specificatii scrise, user stories sau cod existent.',
+    'Atentie la detalii care creeaza frecvent frictiune: loading states, empty states, spatiere mobile si diferente de browser.',
+  ],
+  professionalDetails: {
+    location: 'Locatie',
+    availability: 'Disponibilitate',
+    workMode: 'Mod de lucru',
+    focus: 'Focus',
+    focusValue: 'Interfete React de produs, website-uri responsive si sisteme UI',
+  },
+  languages: [
+    { title: 'Engleza', text: 'Competenta profesionala de lucru' },
+    { title: 'Romana', text: 'Nativ sau bilingv' },
+  ],
+}
+
+const ru = {
+  ...en,
+  ui: {
+    ...en.ui,
+    nav: {
+      projects: 'Проекты',
+      experience: 'Опыт',
+      skills: 'Навыки',
+      stack: 'Стек',
+      standards: 'Стандарты',
+      impact: 'Результаты',
+      fit: 'Подходит',
+      details: 'Детали',
+      contact: 'Контакт',
+    },
+    actions: {
+      downloadPdf: 'Скачать PDF',
+      printCv: 'Печать CV',
+      viewRepository: 'Открыть репозиторий',
+    },
+    aria: {
+      ...en.ui.aria,
+      navigation: 'Навигация страницы',
+      languageSwitcher: 'Выбор языка',
+      contactMethods: 'Способы связи',
+      proficiency: '{{title}} уровень {{score}} процентов',
+    },
+    labels: {
+      developerProfile: 'Профиль разработчика',
+      open: 'Открыт',
+      role: 'Роль',
+      duration: 'Срок',
+      challenge: 'Задача',
+      solution: 'Решение',
+      highlights: 'Ключевые моменты',
+      scope: 'Объем',
+      deliverables: 'Результаты',
+      techStack: 'Технический стек',
+      email: 'Email',
+      github: 'GitHub',
+      location: 'Локация',
+    },
+    sections: {
+      profileEyebrow: 'Front-end developer',
+      impactEyebrow: 'Результаты',
+      impactTitle: 'Доказательства Уверенной Работы',
+      impactSubtitle: 'Измеримые улучшения производительности, удобства и консистентности.',
+      strengthsEyebrow: 'Сильные стороны',
+      strengthsTitle: 'Как Я Создаю Ценность',
+      strengthsSubtitle: 'Практические привычки, которые помогают быстрее поставлять и поддерживать проекты.',
+      projectsEyebrow: 'Кейсы',
+      projectsTitle: 'Проектная Лаборатория',
+      projectsSubtitle: 'Краткие описания проектов с ролью, стеком, результатом и ссылками.',
+      experienceEyebrow: 'Опыт',
+      experienceTitle: 'Выбранный Опыт Работы',
+      educationEyebrow: 'Образование',
+      educationTitle: 'Обучение И Профессиональный Рост',
+      educationSubtitle: 'Формальное обучение, подкрепленное постоянной front-end практикой.',
+      workflowEyebrow: 'Процесс',
+      workflowTitle: 'Система Поставки',
+      workflowSubtitle: 'Понятные шаги от планирования до готового handoff.',
+      collaborationEyebrow: 'Сотрудничество',
+      collaborationTitle: 'Стиль Работы',
+      detailsEyebrow: 'Детали',
+      detailsTitle: 'Профессиональные Данные',
+      skillsEyebrow: 'Инструменты',
+      skillsTitle: 'Архитектура Навыков',
+      stackEyebrow: 'Матрица Стека',
+      stackTitle: 'Техническое Покрытие',
+      standardsEyebrow: 'Engineering стандарты',
+      standardsTitle: 'UI Готовый К Продакшену',
+      fitEyebrow: 'Подходящие роли',
+      fitTitle: 'Что Я Приношу',
+      toolsEyebrow: 'Инструменты',
+      toolsTitle: 'Ежедневный Стек',
+      languagesEyebrow: 'Коммуникация',
+      languagesTitle: 'Языки',
+      contactEyebrow: 'Контакт',
+      contactTitle: 'Доступен для front-end development ролей',
+    },
+  },
+  identity: {
+    role: 'Front End Developer',
+    location: 'Кишинев, Молдова',
+    availability: 'Доступен для junior front-end ролей',
+    workMode: 'Удаленно, гибридно или в офисе',
+    summary:
+      'Front-end developer, сфокусированный на React интерфейсах, доступных пользовательских потоках и поддерживаемых UI системах для команд, которые ценят качество, скорость и надежную поставку.',
+    profileSummary:
+      'Я объединяю UI-внимательность, продуктовое мышление и практичные engineering привычки, чтобы поставлять интерфейсы, которые команды могут легко развивать.',
+  },
+  summaryStrip: ['React Developer', 'Доступный UI', 'Продуктовые интерфейсы'],
+  metrics: [
+    { value: '1+', label: 'год в front-end development' },
+    { value: '35+', label: 'интерфейсов, страниц и потоков' },
+    { value: '92', label: 'цель performance score' },
+    { value: '8', label: 'улучшенных component systems' },
+  ],
+  skillGroups: [
+    {
+      title: 'Архитектура интерфейсов',
+      score: 92,
+      items: ['React', 'Дизайн компонентов', 'State patterns', 'Routing', 'Reusable APIs'],
+    },
+    {
+      title: 'Визуальная реализация',
+      score: 88,
+      items: ['CSS Grid', 'Responsive layouts', 'Tailwind CSS', 'Design Tokens', 'Motion polish'],
+    },
+    {
+      title: 'Качество продукта',
+      score: 84,
+      items: ['Доступность', 'Производительность', 'QA support', 'Code review', 'Документация'],
+    },
+    {
+      title: 'Интеграция',
+      score: 79,
+      items: ['REST APIs', 'Формы', 'Валидация', 'Auth flows', 'Git workflow'],
+    },
+  ],
+  achievements: [
+    {
+      title: 'Улучшение производительности',
+      detail:
+        'Сократил время загрузки landing page на 38% за счет оптимизации изображений, загрузки компонентов и очистки CSS.',
+    },
+    {
+      title: 'Доступные формы',
+      detail:
+        'Создал reusable form patterns с клавиатурной навигацией, состояниями валидации и понятными ошибками.',
+    },
+    {
+      title: 'Design system handoff',
+      detail:
+        'Подготовил документацию компонентов, которая ускорила handoff между дизайном и разработкой.',
+    },
+    {
+      title: 'Мобильный conversion flow',
+      detail:
+        'Улучшил ясность мобильного checkout через упрощение шагов, визуальной иерархии и feedback.',
+    },
+  ],
+  strengths: [
+    {
+      title: 'UI точность',
+      text: 'Внимательно повторяю дизайн: spacing, типографику, responsive states и визуальную иерархию.',
+    },
+    {
+      title: 'Поддерживаемый код',
+      text: 'Предпочитаю небольшие reusable components, понятные имена, предсказуемый state и расширяемые стили.',
+    },
+    {
+      title: 'Решения вокруг пользователя',
+      text: 'Смотрю дальше layout, чтобы уменьшать путаницу, улучшать flows и делать states понятнее.',
+    },
+  ],
+  roleFit: [
+    {
+      title: 'Лучшее соответствие',
+      text: 'React front-end роли, где важны качество продукта, responsive UI и поддерживаемые компоненты.',
+    },
+    {
+      title: 'Главная ценность',
+      text: 'Превращаю дизайн и требования в понятные интерфейсы с реалистичными состояниями и аккуратным polish.',
+    },
+    {
+      title: 'Командный вклад',
+      text: 'Простой handoff, стабильная коммуникация, чистые code habits и готовность улучшать существующие экраны.',
+    },
+  ],
+  roleSignals: [
+    {
+      title: 'Product UI Engineering',
+      text: 'Превращаю требования в responsive interfaces с понятными states, predictable behavior и продуманной структурой.',
+    },
+    {
+      title: 'Front-End Systems',
+      text: 'Создаю reusable components, design-token habits и layout rules для консистентности продукта.',
+    },
+    {
+      title: 'Quality Ownership',
+      text: 'Проверяю accessibility, performance, browser behavior и детали взаимодействия до handoff.',
+    },
+  ],
+  engineeringStandards: [
+    {
+      title: 'Доступность по умолчанию',
+      detail: 'Семантический HTML, клавиатурные пути, видимый focus, читаемый контраст и feedback форм.',
+      proof: 'WCAG-aware UI',
+    },
+    {
+      title: 'Производительность',
+      detail: 'Легкая структура компонентов, аккуратная загрузка assets, CSS cleanup и Lighthouse review.',
+      proof: 'Быстрые интерфейсы',
+    },
+    {
+      title: 'Дисциплина компонентов',
+      detail: 'Reusable primitives, понятные prop boundaries, naming conventions и документированные UI states.',
+      proof: 'Reusable patterns',
+    },
+    {
+      title: 'Responsive QA',
+      detail: 'Mobile spacing, desktop density, browser differences, loading states и empty states проверяются рано.',
+      proof: 'Надежные экраны',
+    },
+  ],
+  stackMatrix: [
+    { area: 'Frontend', tools: ['React', 'Vite', 'JavaScript', 'TypeScript', 'React Router'] },
+    { area: 'Стили', tools: ['CSS Grid', 'Responsive CSS', 'Tailwind CSS', 'Design Tokens'] },
+    { area: 'Формы и данные', tools: ['React Hook Form', 'Zod', 'REST APIs', 'Validation States'] },
+    { area: 'Качество', tools: ['Accessibility', 'Lighthouse', 'Git Workflow', 'Browser QA'] },
+  ],
+  projects: en.projects.map((project) => ({
+    ...project,
+    type:
+      project.id === 'mrstweb'
+        ? 'Личный full-stack проект'
+        : project.id === 'analytics'
+          ? 'React analytics интерфейс'
+          : project.id === 'commerce'
+            ? 'Покупательский flow'
+            : 'Основа component library',
+    role:
+      project.id === 'mrstweb'
+        ? 'Front-end architecture, booking flows, admin UI и API integration'
+        : project.role,
+    duration: project.duration === 'Personal project' ? 'Личный проект' : project.duration,
+    challenge:
+      project.id === 'mrstweb'
+        ? 'Платформе услуг были нужны публичные страницы, бронирование, shop и операционные dashboard в едином web experience.'
+        : project.challenge,
+    solution:
+      project.id === 'mrstweb'
+        ? 'Построил routed React front end с multilingual content, booking/account areas, shop/cart pages, admin screens и employee dashboard.'
+        : project.solution,
+    impact:
+      project.id === 'mrstweb'
+        ? 'Проект показывает end-to-end product thinking: customer experience, operations, authentication, data models и maintainable UI architecture.'
+        : project.impact,
+  })),
+  experience: [
+    {
+      role: 'Front End Developer',
+      company: 'Freelance / Contract',
+      period: '2026 - Сейчас',
+      stack: 'React, TypeScript, Tailwind CSS, Vite',
+      bullets: [
+        'Создаю responsive websites и web apps на React, modern CSS и component-driven architecture.',
+        'Перевожу Figma layouts в polished interfaces с вниманием к spacing, typography и states.',
+        'Улучшаю page speed, accessibility и maintainability в существующих front-end codebases.',
+        'Работаю с клиентами над scope, estimates и focused interface updates.',
+      ],
+    },
+    {
+      role: 'Internship Front End Developer',
+      company: 'BSW TECH',
+      period: '2025 - 2026',
+      stack: 'HTML, CSS, JavaScript, CMS templates',
+      bullets: [
+        'Поставлял landing pages, admin screens и reusable UI sections для клиентских проектов.',
+        'Сотрудничал с дизайнерами и back-end developers для API integration и улучшения flows.',
+        'Поддерживал clean Git workflows и проверял UI changes перед release.',
+        'Помогал QA исправлять layout, browser и accessibility issues.',
+      ],
+    },
+  ],
+  workflow: [
+    { label: 'Discover', text: 'Уточнить цели пользователя, content priorities, edge cases и технические ограничения.' },
+    { label: 'Systemize', text: 'Определить layout rules, reusable components, states и responsive behavior.' },
+    { label: 'Build', text: 'Реализовать semantic React views с accessible controls и надежным CSS.' },
+    { label: 'Refine', text: 'Проверить performance, polish interactions, layouts и подготовить handoff.' },
+  ],
+  tools: ['VS Code', 'Figma', 'Chrome DevTools', 'GitHub', 'npm', 'Vercel-style deployments', 'Lighthouse', 'Postman'],
+  credentials: [
+    {
+      title: 'Технический университет Молдовы',
+      detail: 'Факультет компьютеров, информатики и микроэлектроники',
+      focus: 'Основы программирования, базы данных, software design и web technologies.',
+      status: 'Студент',
+      period: '2024 - 2028',
+    },
+    {
+      title: 'Front-End Engineering',
+      detail: 'Advanced React, accessibility, testing и performance.',
+      focus: 'Component architecture, routing patterns, state handling и production UI quality.',
+      status: 'Специализация',
+    },
+    {
+      title: 'Front-End Development Certificate',
+      detail: 'STEP IT Academy',
+      focus: 'Front-end fundamentals, responsive layouts, JavaScript, React practice и project-based UI development.',
+      status: 'Сертификат',
+    },
+    {
+      title: 'English B2 Certificate',
+      detail: 'Friendly School',
+      focus: 'Upper-intermediate English communication для technical collaboration, documentation и team discussions.',
+      status: 'Сертификат',
+    },
+    {
+      title: 'Профессиональное развитие',
+      detail: 'Design systems, API integration и modern front-end tooling.',
+      focus: 'Design tokens, API-connected interfaces, Git workflow и documentation habits.',
+      status: 'Стажировка',
+    },
+    {
+      title: 'Accessibility Practice',
+      detail: 'Semantic HTML, keyboard flows, contrast checks и form feedback.',
+      focus: 'Practical accessibility reviews для forms, navigation, focus states и responsive layouts.',
+      status: 'Практика',
+    },
+  ],
+  collaboration: [
+    'Понятные progress updates и практичные tradeoff notes во время реализации.',
+    'Комфортно работаю с Figma files, written specs, user stories или existing code.',
+    'Внимателен к деталям, которые часто создают friction: loading states, empty states, mobile spacing и browser differences.',
+  ],
+  professionalDetails: {
+    location: 'Локация',
+    availability: 'Доступность',
+    workMode: 'Формат работы',
+    focus: 'Фокус',
+    focusValue: 'React продуктовые интерфейсы, responsive сайты и UI systems',
+  },
+  languages: [
+    { title: 'Английский', text: 'Профессиональный рабочий уровень' },
+    { title: 'Румынский', text: 'Родной или билингвальный уровень' },
+  ],
+}
+
+i18n.use(initReactI18next).init({
+  resources: {
+    en: { translation: en },
+    ro: { translation: ro },
+    ru: { translation: ru },
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+  interpolation: {
+    escapeValue: false,
+  },
+})
+
+export default i18n
