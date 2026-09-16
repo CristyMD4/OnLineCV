@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 const identityBase = {
   name: 'Corniță Cristian',
-  email: 'cristian.cornita@gmail.com',
+  email: 'cristi.cornita@gmail.com',
   phone: '+373 60 000 000',
   github: 'https://github.com/CristyMD4',
   linkedin: 'https://linkedin.com/',
@@ -90,7 +90,7 @@ function App() {
   const ticking = useRef(false)
   const selectedProject = useMemo(
     () => projects.find((project) => project.id === selectedProjectId),
-    [projects, selectedProjectId],
+    [selectedProjectId],
   )
 
   useEffect(() => {
@@ -395,93 +395,6 @@ function App() {
                 </div>
               </aside>
             </article>
-
-            <div className="print-case-studies" aria-label={t('ui.aria.projectCases')}>
-              {projects.map((project) => (
-                <article className="print-case-study" key={project.id}>
-                  <div className="print-case-main">
-                    <div className="project-preview" aria-label={t('ui.aria.projectPreview')}>
-                      <div className="preview-toolbar">
-                        <span>{project.preview.label}</span>
-                        <small>{project.metric}</small>
-                      </div>
-                      <div className="preview-screen">
-                        <strong>{project.preview.title}</strong>
-                        <div>
-                          {project.preview.stats.map((item) => (
-                            <span key={item}>{item}</span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <p className="eyebrow">{project.type}</p>
-                    <h3>{project.name}</h3>
-                    <p>{project.impact}</p>
-                    <div className="case-meta">
-                      <div>
-                        <span>{t('ui.labels.role')}</span>
-                        <strong>{project.role}</strong>
-                      </div>
-                      <div>
-                        <span>{t('ui.labels.duration')}</span>
-                        <strong>{project.duration}</strong>
-                      </div>
-                    </div>
-                    <div className="project-notes">
-                      <article>
-                        <span>{t('ui.labels.challenge')}</span>
-                        <p>{project.challenge}</p>
-                      </article>
-                      <article>
-                        <span>{t('ui.labels.solution')}</span>
-                        <p>{project.solution}</p>
-                      </article>
-                      <article>
-                        <span>{t('ui.labels.highlights')}</span>
-                        <ul>
-                          {project.highlights.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </ul>
-                      </article>
-                    </div>
-                  </div>
-                  <aside className="print-case-side">
-                    <span>{project.metric}</span>
-                    <div className="stack-list">
-                      <p>{t('ui.labels.techStack')}</p>
-                      {project.stack.map((item) => (
-                        <small key={item}>{item}</small>
-                      ))}
-                    </div>
-                    {project.repoUrl && (
-                      <a
-                        className="case-link"
-                        href={project.repoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {t('ui.actions.viewRepository')}
-                      </a>
-                    )}
-                    {project.scope && (
-                      <div className="scope-list">
-                        <p>{t('ui.labels.scope')}</p>
-                        {project.scope.map((item) => (
-                          <small key={item}>{item}</small>
-                        ))}
-                      </div>
-                    )}
-                    <div className="deliverable-list">
-                      <p>{t('ui.labels.deliverables')}</p>
-                      {project.deliverables.map((item) => (
-                        <small key={item}>{item}</small>
-                      ))}
-                    </div>
-                  </aside>
-                </article>
-              ))}
-            </div>
           </section>
 
           <section className="section-block" id="experience" aria-labelledby="experience-heading">
