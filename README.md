@@ -1,20 +1,20 @@
 # Online CV
 
-Interactive React/Vite CV for Corniță Cristian. The app includes a responsive online CV, project case studies, professional details, education and certificates, compact print styles for PDF export, and i18next translations for English, Romanian, and Russian.
+Interactive Blazor WebAssembly CV for Corniță Cristian. The app includes a responsive online CV, project case studies, professional details, education and certificates, compact print styles for PDF export, and JSON translations for English, Romanian, and Russian.
 
 ## Scripts
 
 ```bash
-npm run dev
-npm run build
-npm run lint
+dotnet run
+dotnet build
 ```
 
 ## Structure
 
-- `src/App.jsx` contains the CV content and React rendering.
-- `src/i18n.js` contains the English, Romanian, and Russian translation resources.
-- `src/index.css` contains the screen, responsive, and print layouts.
-- `public/favicon.svg` is the browser favicon.
+- `Pages/Home.razor` contains the Blazor CV rendering and interactions.
+- `Models/CvContent.cs` contains the typed CV content model.
+- `wwwroot/data/translations.json` contains the English, Romanian, and Russian translation resources.
+- `wwwroot/css/app.css` contains the screen, responsive, and print layouts.
+- `wwwroot/favicon.svg` is the browser favicon.
 
 Use the `Print CV` button or browser print preview to export the print-optimized version.
