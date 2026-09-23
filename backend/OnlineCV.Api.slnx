@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="OnlineCV.Api.csproj" />
+  <Project Path="tests/OnlineCV.Api.Tests/OnlineCV.Api.Tests.csproj" />
+</Solution>

@@ -1,0 +1,7 @@
+bin/
+obj/
+tests/
+.vs/
+.idea/
+.claude/
+data/contact-submissions.json

@@ -7,15 +7,24 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+node_modules/
+dist/
+dist-ssr/
+bin/
+obj/
+TestResults/
+coverage/
 *.local
+backend/data/contact-submissions.json
+.env
+!.env.example
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
+.vs/
+.claude/
 .DS_Store
 *.suo
 *.ntvs*
