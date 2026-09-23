@@ -1,16 +1,34 @@
 # Online CV
 
+<<<<<<< HEAD
 The project is separated into the original React/Vite frontend and an ASP.NET Core backend API.
 
 ```text
 frontend/   React + Vite CV interface
 backend/    ASP.NET Core API, business services, persistence, and tests
+=======
+Interactive Blazor WebAssembly CV for Corniță Cristian. The app includes a responsive online CV, project case studies, professional details, education and certificates, compact print styles for PDF export, and JSON translations for English, Romanian, and Russian.
+
+## Scripts
+
+```bash
+dotnet run
+dotnet build
+>>>>>>> 1dfc6c7e26fdc9d0648c26378dfbc7fbedd188db
 ```
 
 The backend stores data in Microsoft SQL Server. The Development configuration connects to
 `.\SQLEXPRESS` with Windows authentication and creates the `OnlineCV` database automatically.
 
+<<<<<<< HEAD
 ## Run locally
+=======
+- `Pages/Home.razor` contains the Blazor CV rendering and interactions.
+- `Models/CvContent.cs` contains the typed CV content model.
+- `wwwroot/data/translations.json` contains the English, Romanian, and Russian translation resources.
+- `wwwroot/css/app.css` contains the screen, responsive, and print layouts.
+- `wwwroot/favicon.svg` is the browser favicon.
+>>>>>>> 1dfc6c7e26fdc9d0648c26378dfbc7fbedd188db
 
 Start the API from the project root:
 

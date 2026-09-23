@@ -7,6 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+<<<<<<< HEAD
 node_modules/
 dist/
 dist-ssr/
@@ -14,6 +15,13 @@ bin/
 obj/
 TestResults/
 coverage/
+=======
+node_modules
+dist
+dist-ssr
+bin
+obj
+>>>>>>> 1dfc6c7e26fdc9d0648c26378dfbc7fbedd188db
 *.local
 backend/data/contact-submissions.json
 .env

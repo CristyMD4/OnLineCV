@@ -1,0 +1,642 @@
+@page "/"
+@implements IAsyncDisposable
+@inject HttpClient Http
+@inject IJSRuntime JS
+
+@if (_content is null)
+{
+    <main class="cv-page">
+        <section class="loading-card">Loading CV...</section>
+    </main>
+}
+else
+{
+    var t = Content;
+    var identity = Identity;
+    var selectedProject = SelectedProject;
+
+    <main class="cv-page">
+        <header aria-label="@t.Ui.Aria.Navigation" class="@HeaderClass">
+            <a class="brand" href="#profile">@identity.Name</a>
+            <nav>
+                <a href="#projects">@t.Ui.Nav.Projects</a>
+                <a href="#experience">@t.Ui.Nav.Experience</a>
+                <a href="#skills">@t.Ui.Nav.Skills</a>
+                <a href="#stack">@t.Ui.Nav.Stack</a>
+                <a href="#standards">@t.Ui.Nav.Standards</a>
+                <a href="#impact">@t.Ui.Nav.Impact</a>
+                <a href="#fit">@t.Ui.Nav.Fit</a>
+                <a href="#details">@t.Ui.Nav.Details</a>
+                <a href="#contact">@t.Ui.Nav.Contact</a>
+            </nav>
+            <div class="topbar-actions">
+                <div class="language-switcher" aria-label="@t.Ui.Aria.LanguageSwitcher">
+                    @foreach (var language in LanguageOptions)
+                    {
+                        <button aria-pressed="@BoolString(_language == language.Code)" @onclick="() => ChangeLanguage(language.Code)" type="button">
+                            @language.Label
+                        </button>
+                    }
+                </div>
+                <button type="button" @onclick="PrintAsync">@t.Ui.Actions.DownloadPdf</button>
+                <button type="button" @onclick="PrintAsync">@t.Ui.Actions.PrintCv</button>
+            </div>
+        </header>
+
+        <section class="hero-section" id="profile" aria-labelledby="candidate-name">
+            <div class="hero-copy">
+                <div class="summary-strip" aria-label="@t.Ui.Aria.Highlights">
+                    @foreach (var item in t.SummaryStrip)
+                    {
+                        <span>@item</span>
+                    }
+                    <span>@identity.Location</span>
+                </div>
+                <p class="eyebrow">@t.Ui.Sections.ProfileEyebrow</p>
+                <h1 id="candidate-name">@identity.Name</h1>
+                <p class="role">@identity.Role</p>
+                <p class="intro">@identity.Summary</p>
+                <div class="hero-actions" aria-label="@t.Ui.Aria.ContactLinks">
+                    <a href="@($"mailto:{identity.Email}")">@identity.Email</a>
+                    <a href="@PhoneHref">@identity.Phone</a>
+                    <a href="@identity.Github" target="_blank" rel="noreferrer">GitHub</a>
+                    <a href="@identity.Linkedin" target="_blank" rel="noreferrer">LinkedIn</a>
+                </div>
+                <div class="role-signal-grid" aria-label="@t.Ui.Aria.RoleFocus">
+                    @foreach (var signal in t.RoleSignals)
+                    {
+                        <article>
+                            <h2>@signal.Title</h2>
+                            <p>@signal.Text</p>
+                        </article>
+                    }
+                </div>
+            </div>
+
+            <aside class="profile-panel" aria-label="@t.Ui.Aria.CareerSnapshot">
+                <div class="panel-header">
+                    <span>@t.Ui.Labels.DeveloperProfile</span>
+                    <strong>@t.Ui.Labels.Open</strong>
+                </div>
+                <div class="avatar-card" aria-label="@t.Ui.Aria.Avatar">
+                    <div class="avatar-mark" aria-hidden="true">CC</div>
+                    <div>
+                        <h2>@identity.Name</h2>
+                        <p>@identity.Role</p>
+                    </div>
+                </div>
+                <div class="profile-summary">
+                    <p>@identity.ProfileSummary</p>
+                </div>
+                <div class="availability-panel">
+                    <span>@identity.Availability</span>
+                    <small>@identity.WorkMode</small>
+                </div>
+                <div class="metric-grid">
+                    @foreach (var metric in t.Metrics)
+                    {
+                        <div class="metric-card">
+                            <span class="metric">@metric.Value</span>
+                            <span class="metric-label">@metric.Label</span>
+                        </div>
+                    }
+                </div>
+            </aside>
+        </section>
+
+        <section class="systems-row" aria-label="@t.Ui.Aria.CapabilityOverview">
+            @foreach (var group in t.SkillGroups)
+            {
+                <article class="system-card">
+                    <div>
+                        <h2>@group.Score</h2>
+                        <span>@group.Title</span>
+                    </div>
+                    <meter min="0" max="100" value="@group.Score">@group.Score</meter>
+                </article>
+            }
+        </section>
+
+        <section class="content-grid">
+            <div class="main-column">
+                <section class="section-block" id="impact" aria-labelledby="impact-heading">
+                    <div class="section-heading split-heading">
+                        <div>
+                            <p>@t.Ui.Sections.ImpactEyebrow</p>
+                            <h2 id="impact-heading">@t.Ui.Sections.ImpactTitle</h2>
+                        </div>
+                        <span>@t.Ui.Sections.ImpactSubtitle</span>
+                    </div>
+                    <div class="achievement-grid">
+                        @for (var index = 0; index < t.Achievements.Count; index++)
+                        {
+                            var achievement = t.Achievements[index];
+                            <article class="achievement-card">
+                                <span>@(index + 1).ToString("D2")</span>
+                                <h3>@achievement.Title</h3>
+                                <p>@achievement.Detail</p>
+                            </article>
+                        }
+                    </div>
+                </section>
+
+                <section class="section-block strengths-section" aria-labelledby="strengths-heading">
+                    <div class="section-heading split-heading">
+                        <div>
+                            <p>@t.Ui.Sections.StrengthsEyebrow</p>
+                            <h2 id="strengths-heading">@t.Ui.Sections.StrengthsTitle</h2>
+                        </div>
+                        <span>@t.Ui.Sections.StrengthsSubtitle</span>
+                    </div>
+                    <div class="strength-grid">
+                        @foreach (var strength in t.Strengths)
+                        {
+                            <article class="strength-card">
+                                <h3>@strength.Title</h3>
+                                <p>@strength.Text</p>
+                            </article>
+                        }
+                    </div>
+                </section>
+
+                <section class="section-block project-lab" id="projects" aria-labelledby="projects-heading">
+                    <div class="section-heading split-heading">
+                        <div>
+                            <p>@t.Ui.Sections.ProjectsEyebrow</p>
+                            <h2 id="projects-heading">@t.Ui.Sections.ProjectsTitle</h2>
+                        </div>
+                        <span>@t.Ui.Sections.ProjectsSubtitle</span>
+                    </div>
+
+                    <div class="project-switcher" role="group" aria-label="@t.Ui.Aria.ProjectCases">
+                        @foreach (var project in t.Projects)
+                        {
+                            <button aria-pressed="@BoolString(selectedProject.Id == project.Id)" @onclick="() => SelectProject(project.Id)" type="button">
+                                <span>@project.Type</span>
+                                @project.Name
+                            </button>
+                        }
+                    </div>
+
+                    <article class="case-study">
+                        <div class="case-main">
+                            <div class="project-preview" aria-label="@t.Ui.Aria.ProjectPreview">
+                                <div class="preview-toolbar">
+                                    <span>@selectedProject.Preview.Label</span>
+                                    <small>@selectedProject.Metric</small>
+                                </div>
+                                <div class="preview-screen">
+                                    <strong>@selectedProject.Preview.Title</strong>
+                                    <div>
+                                        @foreach (var item in selectedProject.Preview.Stats)
+                                        {
+                                            <span>@item</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="eyebrow">@selectedProject.Type</p>
+                            <h3>@selectedProject.Name</h3>
+                            <p>@selectedProject.Impact</p>
+                            <div class="case-meta">
+                                <div>
+                                    <span>@t.Ui.Labels.Role</span>
+                                    <strong>@selectedProject.Role</strong>
+                                </div>
+                                <div>
+                                    <span>@t.Ui.Labels.Duration</span>
+                                    <strong>@selectedProject.Duration</strong>
+                                </div>
+                            </div>
+                            <div class="project-notes" id="project-notes">
+                                <article>
+                                    <span>@t.Ui.Labels.Challenge</span>
+                                    <p>@selectedProject.Challenge</p>
+                                </article>
+                                <article>
+                                    <span>@t.Ui.Labels.Solution</span>
+                                    <p>@selectedProject.Solution</p>
+                                </article>
+                                <article>
+                                    <span>@t.Ui.Labels.Highlights</span>
+                                    <ul>
+                                        @foreach (var item in selectedProject.Highlights)
+                                        {
+                                            <li>@item</li>
+                                        }
+                                    </ul>
+                                </article>
+                            </div>
+                        </div>
+                        <aside class="case-side">
+                            <span>@selectedProject.Metric</span>
+                            <div class="stack-list">
+                                <p>@t.Ui.Labels.TechStack</p>
+                                @foreach (var item in selectedProject.Stack.Take(6))
+                                {
+                                    <small>@item</small>
+                                }
+                            </div>
+                            @if (ProjectRepoUrls.TryGetValue(selectedProject.Id, out var repoUrl))
+                            {
+                                <a class="case-link" href="@repoUrl" target="_blank" rel="noreferrer">@t.Ui.Actions.ViewRepository</a>
+                            }
+                            @if (selectedProject.Scope.Count > 0)
+                            {
+                                <div class="scope-list">
+                                    <p>@t.Ui.Labels.Scope</p>
+                                    @foreach (var item in selectedProject.Scope)
+                                    {
+                                        <small>@item</small>
+                                    }
+                                </div>
+                            }
+                            <div class="deliverable-list">
+                                <p>@t.Ui.Labels.Deliverables</p>
+                                @foreach (var item in selectedProject.Deliverables.Take(5))
+                                {
+                                    <small>@item</small>
+                                }
+                            </div>
+                        </aside>
+                    </article>
+                </section>
+
+                <section class="section-block" id="experience" aria-labelledby="experience-heading">
+                    <div class="section-heading">
+                        <p>@t.Ui.Sections.ExperienceEyebrow</p>
+                        <h2 id="experience-heading">@t.Ui.Sections.ExperienceTitle</h2>
+                    </div>
+                    <div class="timeline">
+                        @foreach (var item in t.Experience)
+                        {
+                            <article class="timeline-item">
+                                <div class="timeline-meta">
+                                    <span>@item.Period</span>
+                                    <small>@item.Stack</small>
+                                </div>
+                                <div>
+                                    <h3>@item.Role</h3>
+                                    <p class="company">@item.Company</p>
+                                    <ul>
+                                        @foreach (var bullet in item.Bullets)
+                                        {
+                                            <li>@bullet</li>
+                                        }
+                                    </ul>
+                                </div>
+                            </article>
+                        }
+                    </div>
+                </section>
+
+                <section class="section-block education-section" aria-labelledby="education-heading">
+                    <div class="section-heading split-heading">
+                        <div>
+                            <p>@t.Ui.Sections.EducationEyebrow</p>
+                            <h2 id="education-heading">@t.Ui.Sections.EducationTitle</h2>
+                        </div>
+                        <span>@t.Ui.Sections.EducationSubtitle</span>
+                    </div>
+                    <div class="education-grid">
+                        @for (var index = 0; index < t.Credentials.Count; index++)
+                        {
+                            var item = t.Credentials[index];
+                            <article class="@EducationClass(index)">
+                                <div class="education-card-header">
+                                    <span class="education-status">@item.Status</span>
+                                    @if (!string.IsNullOrWhiteSpace(item.Period))
+                                    {
+                                        <small>@item.Period</small>
+                                    }
+                                </div>
+                                <h3>@item.Title</h3>
+                                <p>@item.Detail</p>
+                                <small>@item.Focus</small>
+                                <span class="education-accent" aria-hidden="true"></span>
+                            </article>
+                        }
+                    </div>
+                </section>
+
+                <section class="section-block workflow-section" aria-labelledby="workflow-heading">
+                    <div class="section-heading split-heading">
+                        <div>
+                            <p>@t.Ui.Sections.WorkflowEyebrow</p>
+                            <h2 id="workflow-heading">@t.Ui.Sections.WorkflowTitle</h2>
+                        </div>
+                        <span>@t.Ui.Sections.WorkflowSubtitle</span>
+                    </div>
+                    <ol class="process-list">
+                        @foreach (var step in t.Workflow)
+                        {
+                            <li>
+                                <strong>@step.Label</strong>
+                                <span>@step.Text</span>
+                            </li>
+                        }
+                    </ol>
+                </section>
+
+                <section class="section-block collaboration-section" aria-labelledby="collaboration-heading">
+                    <div class="section-heading">
+                        <p>@t.Ui.Sections.CollaborationEyebrow</p>
+                        <h2 id="collaboration-heading">@t.Ui.Sections.CollaborationTitle</h2>
+                    </div>
+                    <ul class="collaboration-list">
+                        @foreach (var item in t.Collaboration)
+                        {
+                            <li>@item</li>
+                        }
+                    </ul>
+                </section>
+            </div>
+
+            <aside class="side-column">
+                <section class="section-block compact" id="details" aria-labelledby="details-heading">
+                    <div class="section-heading">
+                        <p>@t.Ui.Sections.DetailsEyebrow</p>
+                        <h2 id="details-heading">@t.Ui.Sections.DetailsTitle</h2>
+                    </div>
+                    <div class="detail-list">
+                        @foreach (var detail in ProfessionalDetails)
+                        {
+                            <article>
+                                <span>@detail.Label</span>
+                                <p>@detail.Value</p>
+                            </article>
+                        }
+                    </div>
+                </section>
+
+                <section class="section-block compact" id="skills" aria-labelledby="skills-heading">
+                    <div class="section-heading">
+                        <p>@t.Ui.Sections.SkillsEyebrow</p>
+                        <h2 id="skills-heading">@t.Ui.Sections.SkillsTitle</h2>
+                    </div>
+                    <div class="skill-groups">
+                        @foreach (var group in t.SkillGroups)
+                        {
+                            <article>
+                                <div class="skill-title">
+                                    <h3>@group.Title</h3>
+                                    <span>@group.Score%</span>
+                                </div>
+                                <div class="skill-meter" aria-label="@ProficiencyLabel(group)">
+                                    <span style="@($"width: {group.Score}%")"></span>
+                                </div>
+                                <div class="skill-list">
+                                    @foreach (var skill in group.Items)
+                                    {
+                                        <span>@skill</span>
+                                    }
+                                </div>
+                            </article>
+                        }
+                    </div>
+                </section>
+
+                <section class="section-block compact stack-matrix-section" id="stack" aria-labelledby="stack-heading">
+                    <div class="section-heading">
+                        <p>@t.Ui.Sections.StackEyebrow</p>
+                        <h2 id="stack-heading">@t.Ui.Sections.StackTitle</h2>
+                    </div>
+                    <div class="stack-matrix">
+                        @foreach (var group in t.StackMatrix)
+                        {
+                            <article>
+                                <h3>@group.Area</h3>
+                                <div>
+                                    @foreach (var tool in group.Tools)
+                                    {
+                                        <span>@tool</span>
+                                    }
+                                </div>
+                            </article>
+                        }
+                    </div>
+                </section>
+
+                <section class="section-block compact standards-section" id="standards" aria-labelledby="standards-heading">
+                    <div class="section-heading">
+                        <p>@t.Ui.Sections.StandardsEyebrow</p>
+                        <h2 id="standards-heading">@t.Ui.Sections.StandardsTitle</h2>
+                    </div>
+                    <div class="standards-grid">
+                        @foreach (var standard in t.EngineeringStandards)
+                        {
+                            <article class="standard-card">
+                                <span>@standard.Proof</span>
+                                <h3>@standard.Title</h3>
+                                <p>@standard.Detail</p>
+                            </article>
+                        }
+                    </div>
+                </section>
+
+                <section class="section-block compact" id="fit" aria-labelledby="fit-heading">
+                    <div class="section-heading">
+                        <p>@t.Ui.Sections.FitEyebrow</p>
+                        <h2 id="fit-heading">@t.Ui.Sections.FitTitle</h2>
+                    </div>
+                    <div class="fit-list">
+                        @foreach (var item in t.RoleFit)
+                        {
+                            <article>
+                                <h3>@item.Title</h3>
+                                <p>@item.Text</p>
+                            </article>
+                        }
+                    </div>
+                </section>
+
+                <section class="section-block compact" aria-labelledby="tools-heading">
+                    <div class="section-heading">
+                        <p>@t.Ui.Sections.ToolsEyebrow</p>
+                        <h2 id="tools-heading">@t.Ui.Sections.ToolsTitle</h2>
+                    </div>
+                    <div class="tool-list">
+                        @foreach (var tool in t.Tools)
+                        {
+                            <span>@tool</span>
+                        }
+                    </div>
+                </section>
+
+                <section class="section-block compact" aria-labelledby="languages-heading">
+                    <div class="section-heading">
+                        <p>@t.Ui.Sections.LanguagesEyebrow</p>
+                        <h2 id="languages-heading">@t.Ui.Sections.LanguagesTitle</h2>
+                    </div>
+                    <div class="stacked-list">
+                        @foreach (var language in t.Languages)
+                        {
+                            <article>
+                                <h3>@language.Title</h3>
+                                <p>@language.Text</p>
+                            </article>
+                        }
+                    </div>
+                </section>
+            </aside>
+        </section>
+
+        <footer class="contact-footer" id="contact">
+            <div>
+                <p class="eyebrow">@t.Ui.Sections.ContactEyebrow</p>
+                <h2>@t.Ui.Sections.ContactTitle</h2>
+            </div>
+            <div class="contact-methods" aria-label="@t.Ui.Aria.ContactMethods">
+                @foreach (var method in ContactMethods)
+                {
+                    <a href="@method.Href" target="@ExternalTarget(method.Href)" rel="@ExternalRel(method.Href)">
+                        <span>@method.Label</span>
+                        <strong>@method.Value</strong>
+                    </a>
+                }
+            </div>
+        </footer>
+    </main>
+}
+
+@code {
+    private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web);
+    private static readonly IReadOnlyList<LanguageOption> LanguageOptions =
+    [
+        new("en", "EN"),
+        new("ro", "RO"),
+        new("ru", "RU"),
+    ];
+    private static readonly IReadOnlyDictionary<string, string> ProjectRepoUrls = new Dictionary<string, string>
+    {
+        ["mrstweb"] = "https://github.com/CristyMD4/MRSTWeb",
+    };
+    private static readonly string[] CredentialVariants = ["student", "specialization", "certificate", "certificate", "internship", "practice"];
+
+    private Dictionary<string, CvContent> _translations = [];
+    private CvContent? _content;
+    private DotNetObjectReference<Home>? _dotNetRef;
+    private string _language = "en";
+    private string _selectedProjectId = "mrstweb";
+    private bool _isHeaderHidden;
+
+    private CvContent Content => _content!;
+    private string HeaderClass => _isHeaderHidden ? "topbar topbar--hidden" : "topbar";
+    private ProjectItem SelectedProject => Content.Projects.FirstOrDefault(project => project.Id == _selectedProjectId) ?? Content.Projects.First();
+    private string PhoneHref => $"tel:{Identity.Phone.Replace(" ", "", StringComparison.Ordinal)}";
+
+    private IdentityView Identity => new()
+    {
+        Name = "Corniță Cristian",
+        Email = "cristi.cornita@gmail.com",
+        Phone = "+373 60 000 000",
+        Github = "https://github.com/CristyMD4",
+        Linkedin = "https://linkedin.com/",
+        Role = Content.Identity.Role,
+        Location = Content.Identity.Location,
+        Availability = Content.Identity.Availability,
+        WorkMode = Content.Identity.WorkMode,
+        Summary = Content.Identity.Summary,
+        ProfileSummary = Content.Identity.ProfileSummary,
+    };
+
+    private IEnumerable<LabelValue> ProfessionalDetails =>
+    [
+        new(Content.ProfessionalDetails.Location, Identity.Location),
+        new(Content.ProfessionalDetails.Availability, Identity.Availability),
+        new(Content.ProfessionalDetails.WorkMode, Identity.WorkMode),
+        new(Content.ProfessionalDetails.Focus, Content.ProfessionalDetails.FocusValue),
+    ];
+
+    private IEnumerable<ContactMethod> ContactMethods =>
+    [
+        new(Content.Ui.Labels.Email, Identity.Email, $"mailto:{Identity.Email}"),
+        new(Content.Ui.Labels.Github, "github.com/CristyMD4", Identity.Github),
+        new(Content.Ui.Labels.Location, Identity.Location, "#details"),
+    ];
+
+    protected override async Task OnInitializedAsync()
+    {
+        _translations = await Http.GetFromJsonAsync<Dictionary<string, CvContent>>("data/translations.json", JsonOptions) ?? [];
+        _content = _translations[_language];
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+
+        _dotNetRef = DotNetObjectReference.Create(this);
+        await JS.InvokeVoidAsync("cvUi.registerHeaderScroll", _dotNetRef);
+    }
+
+    [JSInvokable]
+    public Task SetHeaderHidden(bool hidden)
+    {
+        if (_isHeaderHidden == hidden)
+        {
+            return Task.CompletedTask;
+        }
+
+        _isHeaderHidden = hidden;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private void ChangeLanguage(string language)
+    {
+        if (!_translations.TryGetValue(language, out var nextContent))
+        {
+            return;
+        }
+
+        _language = language;
+        _content = nextContent;
+
+        if (!Content.Projects.Any(project => project.Id == _selectedProjectId))
+        {
+            _selectedProjectId = Content.Projects.FirstOrDefault()?.Id ?? "";
+        }
+    }
+
+    private void SelectProject(string projectId)
+    {
+        _selectedProjectId = projectId;
+    }
+
+    private async Task PrintAsync()
+    {
+        await JS.InvokeVoidAsync("cvUi.print");
+    }
+
+    private string ProficiencyLabel(SkillGroup group)
+    {
+        return Content.Ui.Aria.Proficiency
+            .Replace("{{title}}", group.Title, StringComparison.Ordinal)
+            .Replace("{{score}}", group.Score.ToString(), StringComparison.Ordinal);
+    }
+
+    private static string BoolString(bool value) => value ? "true" : "false";
+    private static string EducationClass(int index) => $"education-card education-card--{CredentialVariants[index % CredentialVariants.Length]}";
+    private static string? ExternalTarget(string href) => href.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? "_blank" : null;
+    private static string? ExternalRel(string href) => href.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? "noreferrer" : null;
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            await JS.InvokeVoidAsync("cvUi.unregisterHeaderScroll");
+        }
+        catch (JSDisconnectedException)
+        {
+        }
+
+        _dotNetRef?.Dispose();
+    }
+
+    private sealed record LanguageOption(string Code, string Label);
+    private sealed record LabelValue(string Label, string Value);
+    private sealed record ContactMethod(string Label, string Value, string Href);
+}
