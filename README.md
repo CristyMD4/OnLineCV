@@ -68,7 +68,7 @@ If the API is offline, returns an error, or returns incomplete CV content, the p
 
 ## Admin editor
 
-Open `http://localhost:5173/admin` to sign in and edit the complete CV content with labeled forms. The editor groups content by section, previews unsaved changes, and keeps the complete JSON document under **Advanced JSON**. In local Development mode, the initial credentials are:
+Open `http://localhost:5173/admin` to sign in and edit the complete CV content with labeled forms. The editor groups content by section, previews unsaved changes, and provides a synchronized **Section JSON** editor containing only the selected category. In local Development mode, the initial credentials are:
 
 ```text
 Username: admin

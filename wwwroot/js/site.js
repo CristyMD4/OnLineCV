@@ -53,4 +53,16 @@ window.cvUi = {
   print() {
     window.print();
   },
+
+  sessionGet(key) {
+    return window.sessionStorage.getItem(key);
+  },
+
+  sessionSet(key, value) {
+    window.sessionStorage.setItem(key, value);
+  },
+
+  sessionRemove(key) {
+    window.sessionStorage.removeItem(key);
+  },
 };

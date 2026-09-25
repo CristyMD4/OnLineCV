@@ -43,7 +43,7 @@ const ARRAY_TEMPLATES = {
   metrics: { value: '', label: '' },
   navigation: { label: '', href: '' },
   professionalDetails: { label: '', value: '' },
-  projects: { id: '', name: '', type: '', role: '', duration: '', repoUrl: '', stack: [], metric: '', preview: '', scope: '', challenge: '', solution: '', impact: '', deliverables: [], highlights: [] },
+  projects: { id: '', name: '', type: '', role: '', duration: '', repoUrl: '', stack: [], metric: '', preview: { label: '', title: '', stats: [] }, scope: [], challenge: '', solution: '', impact: '', deliverables: [], highlights: [] },
   roleFit: { title: '', text: '' },
   roleSignals: { title: '', text: '' },
   skillGroups: { title: '', score: 0, items: [] },
@@ -134,6 +134,18 @@ function formatValue(value) {
 function itemHeading(item, index) {
   if (typeof item === 'string') return `Item ${index + 1}`
   return item?.name || item?.title || item?.role || item?.label || item?.area || `Item ${index + 1}`
+}
+
+function formatSectionJson(content, section) {
+  return JSON.stringify(content?.[section] ?? null, null, 2)
+}
+
+function isCompatibleSectionValue(currentValue, nextValue) {
+  if (Array.isArray(currentValue)) return Array.isArray(nextValue)
+  if (currentValue && typeof currentValue === 'object') {
+    return Boolean(nextValue) && typeof nextValue === 'object' && !Array.isArray(nextValue)
+  }
+  return typeof nextValue === typeof currentValue
 }
 
 function FieldEditor({ fieldKey, value, path, onChange, source, depth = 0 }) {
@@ -273,7 +285,7 @@ function Admin() {
       const result = await response.json()
       setContent(result)
       setSavedContent(structuredClone(result))
-      setJsonDraft(JSON.stringify(result, null, 2))
+      setJsonDraft(formatSectionJson(result, selectedSection))
       setJsonError('')
       setStatus('Content loaded')
       setStatusKind('success')
@@ -331,7 +343,7 @@ function Admin() {
       const result = await response.json()
       setContent(result)
       setSavedContent(structuredClone(result))
-      setJsonDraft(JSON.stringify(result, null, 2))
+      setJsonDraft(formatSectionJson(result, selectedSection))
       setStatus('Changes saved')
       setStatusKind('success')
     } catch (error) {
@@ -344,17 +356,23 @@ function Admin() {
 
   function updateContent(nextContent) {
     setContent(nextContent)
-    setJsonDraft(JSON.stringify(nextContent, null, 2))
+    setJsonDraft(formatSectionJson(nextContent, selectedSection))
     setJsonError('')
     setStatus('Unsaved changes')
     setStatusKind('neutral')
   }
 
-  function updateJson(value) {
+  function updateSectionJson(value) {
     setJsonDraft(value)
     try {
       const parsed = JSON.parse(value)
-      setContent(parsed)
+      if (!isCompatibleSectionValue(content[selectedSection], parsed)) {
+        const expectedType = Array.isArray(content[selectedSection]) ? 'an array' : 'an object'
+        setJsonError(`${sectionTitle} must be ${expectedType}.`)
+        return
+      }
+
+      setContent(updateAtPath(content, [selectedSection], parsed))
       setJsonError('')
       setStatus('Unsaved changes')
       setStatusKind('neutral')
@@ -365,8 +383,21 @@ function Admin() {
 
   function changeMode(mode) {
     if (mode === 'form' && jsonError) return
-    if (mode === 'json' && content) setJsonDraft(JSON.stringify(content, null, 2))
+    if (mode === 'json' && content) setJsonDraft(formatSectionJson(content, selectedSection))
     setEditorMode(mode)
+  }
+
+  function selectSection(section) {
+    if (section === selectedSection) return
+    if (editorMode === 'json' && jsonError) {
+      setStatus('Fix the current section JSON before changing sections.')
+      setStatusKind('error')
+      return
+    }
+
+    setSelectedSection(section)
+    setJsonDraft(formatSectionJson(content, section))
+    setJsonError('')
   }
 
   function signOut() {
@@ -409,7 +440,7 @@ function Admin() {
             {availableSections.map((key) => {
               const label = SECTION_META[key]?.[0] ?? humanize(key)
               const sectionChanges = changes.filter((change) => change.path[0] === key).length
-              return <button className={selectedSection === key ? 'is-active' : ''} key={key} onClick={() => setSelectedSection(key)} type="button"><span>{label}</span>{sectionChanges > 0 && <strong>{sectionChanges}</strong>}</button>
+              return <button className={selectedSection === key ? 'is-active' : ''} key={key} onClick={() => selectSection(key)} type="button"><span>{label}</span>{sectionChanges > 0 && <strong>{sectionChanges}</strong>}</button>
             })}
           </nav>
         </aside>
@@ -422,16 +453,17 @@ function Admin() {
             </div>
             <div className="admin-mode" aria-label="Editor mode">
               <button className={editorMode === 'form' ? 'is-active' : ''} disabled={Boolean(jsonError)} onClick={() => changeMode('form')} type="button">Form</button>
-              <button className={editorMode === 'json' ? 'is-active' : ''} onClick={() => changeMode('json')} type="button">Advanced JSON</button>
+              <button className={editorMode === 'json' ? 'is-active' : ''} onClick={() => changeMode('json')} type="button">Section JSON</button>
             </div>
             <p className={`admin-status admin-status--${statusKind}`} aria-live="polite">{status}</p>
           </div>
 
           {!content ? <div className="admin-loading">Loading CV content...</div> : editorMode === 'json' ? (
             <div className="admin-json-editor">
-              <div><h2>Advanced JSON</h2><p>Edit the complete data document directly.</p></div>
+              <div className="admin-section-heading"><p>Section JSON</p><h2>{sectionTitle}</h2><span>{sectionDescription}</span></div>
+              <p className="admin-json-help">This editor contains only the <strong>{sectionTitle}</strong> data. Changes are synchronized with this section's form.</p>
               {jsonError && <p className="admin-json-error">{jsonError}</p>}
-              <textarea aria-label="CV content JSON" onChange={(event) => updateJson(event.target.value)} spellCheck="false" value={jsonDraft} />
+              <textarea aria-label={`${sectionTitle} JSON`} onChange={(event) => updateSectionJson(event.target.value)} spellCheck="false" value={jsonDraft} />
             </div>
           ) : (
             <div className="admin-form-editor">

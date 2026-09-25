@@ -1,0 +1,121 @@
+@page "/admin"
+
+@if (string.IsNullOrWhiteSpace(_token))
+{
+    <main class="admin-page admin-login-page">
+        <form class="admin-login" @onsubmit="LoginAsync">
+            <p class="admin-kicker">OnlineCV</p>
+            <h1>Administrator sign in</h1>
+            <label>Username<input @bind="_username" autocomplete="username" required /></label>
+            <label>Password<input @bind="_password" autocomplete="current-password" required type="password" /></label>
+            <button disabled="@_busy" type="submit">Sign in</button>
+            @if (!string.IsNullOrWhiteSpace(_status))
+            {
+                <p class="admin-status admin-status--@_statusKind">@_status</p>
+            }
+            <a href="/">Return to CV</a>
+        </form>
+    </main>
+}
+else if (_content is null)
+{
+    <main class="admin-page admin-login-page">
+        <p class="admin-loading">Loading CV content...</p>
+    </main>
+}
+else
+{
+    <main class="admin-page admin-editor-page">
+        <header class="admin-header">
+            <div>
+                <p class="admin-kicker">OnlineCV</p>
+                <h1>Content editor</h1>
+            </div>
+            <div class="admin-header-actions">
+                <a href="/" target="_blank">View CV</a>
+                <button class="admin-button-secondary" @onclick="SignOutAsync">Sign out</button>
+            </div>
+        </header>
+
+        <div class="admin-shell">
+            <aside class="admin-sidebar">
+                <label class="admin-section-search">
+                    <span>Find a section</span>
+                    <input @bind="_sectionFilter" @bind:event="oninput" placeholder="Search sections" type="search" />
+                </label>
+                <nav aria-label="CV sections">
+                    @foreach (var section in FilteredSections)
+                    {
+                        <button class="@(section == _selectedSection ? "is-active" : "")" @onclick="() => SelectSection(section)" type="button">
+                            <span>@SectionTitle(section)</span>
+                            @if (IsChanged(section))
+                            {
+                                <strong>!</strong>
+                            }
+                        </button>
+                    }
+                </nav>
+            </aside>
+
+            <section class="admin-workspace" aria-label="CV content editor">
+                <div class="admin-toolbar">
+                    <div class="admin-toolbar-actions">
+                        <button disabled="@(_busy || !HasChanges || _jsonError is not null)" @onclick="SaveAsync" type="button">
+                            Save @(ChangeCount == 0 ? "changes" : $"{ChangeCount} change{(ChangeCount == 1 ? "" : "s")}")
+                        </button>
+                        <button class="admin-button-secondary" disabled="@_busy" @onclick="LoadAsync" type="button">Reload</button>
+                    </div>
+                    <div class="admin-mode" aria-label="Editor mode">
+                        <button class="@(!_jsonMode ? "is-active" : "")" disabled="@(_jsonError is not null)" @onclick="() => SetJsonMode(false)" type="button">Form</button>
+                        <button class="@(_jsonMode ? "is-active" : "")" @onclick="() => SetJsonMode(true)" type="button">Section JSON</button>
+                    </div>
+                    <p class="admin-status admin-status--@_statusKind" aria-live="polite">@_status</p>
+                </div>
+
+                @if (_jsonMode)
+                {
+                    <div class="admin-json-editor">
+                        <div class="admin-section-heading">
+                            <p>Section JSON</p>
+                            <h2>@SectionTitle(_selectedSection)</h2>
+                            <span>@SectionDescription(_selectedSection)</span>
+                        </div>
+                        <p class="admin-json-help">Edit only the <strong>@SectionTitle(_selectedSection)</strong> data. Changes are synchronized with the complete document.</p>
+                        @if (_jsonError is not null)
+                        {
+                            <p class="admin-json-error">@_jsonError</p>
+                        }
+                        <textarea aria-label="Section JSON" @bind="_jsonDraft" @bind:event="oninput" @onchange="ApplyJson" spellcheck="false"></textarea>
+                    </div>
+                }
+                else
+                {
+                    <div class="admin-form-editor">
+                        <div class="admin-section-heading">
+                            <p>CV section</p>
+                            <h2>@SectionTitle(_selectedSection)</h2>
+                            <span>@SectionDescription(_selectedSection)</span>
+                        </div>
+                        <p class="admin-json-help">Use Section JSON to edit this section. The public CV reads the saved content after reload.</p>
+                        <button class="admin-button-secondary" @onclick="() => SetJsonMode(true)" type="button">Open section JSON</button>
+                    </div>
+                }
+            </section>
+
+            <aside class="admin-changes" aria-label="Unsaved changes">
+                <div class="admin-changes-heading">
+                    <div><p>Review</p><h2>Unsaved changes</h2></div>
+                    <strong>@ChangeCount</strong>
+                </div>
+                @if (ChangeCount == 0)
+                {
+                    <p class="admin-empty">Your edits will appear here before you save them.</p>
+                }
+                else
+                {
+                    <p class="admin-empty">The selected section has unsaved changes.</p>
+                }
+            </aside>
+        </div>
+    </main>
+}
